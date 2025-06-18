@@ -1,4 +1,5 @@
 import { readdir } from "fs/promises";
+import path from "path";
 import { Category } from "./categories";
 
 export interface Post {
@@ -10,62 +11,48 @@ export interface Post {
 
 export const postsPerPage = 3 as const;
 
-export async function getPosts(): Promise<Post[]> {
-  // Retreive slugs from post routes
-  const slugsEN = (
-    await readdir("./app/[locale]/blog/[slug]/(en)", { withFileTypes: true })
-  ).filter((dirent) => dirent.isDirectory());
-  const slugsES = (
-    await readdir("./app/[locale]/blog/[slug]/(es)", { withFileTypes: true })
-  ).filter((dirent) => dirent.isDirectory());
-  const slugsPT = (
-    await readdir("./app/[locale]/blog/[slug]/(pt-br)", { withFileTypes: true })
-  ).filter((dirent) => dirent.isDirectory());
+const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
-    // Combine slugs from all locales
-    const slugs = [...slugsEN, ...slugsES, ...slugsPT].map((dirent) => ({
-      name: dirent.name,
-    }));
-  // // Retreive metadata from MDX files
-  const postsEN = await Promise.all(
-    slugsEN.map(async ({ name }) => {
-      const { metadata } = await import(
-        `./app/[locale]/blog/[slug]/(en)/${name}/page.mdx`
-      );
-      return { slug: name, ...metadata };
+export async function getSlugs(): Promise<string[]> {
+  const dirs = (await readdir(POSTS_DIR, { withFileTypes: true })).filter((d) =>
+    d.isDirectory()
+  );
+  return dirs.map((d) => d.name);
+}
+
+async function loadMetadata(locale: string, slug: string) {
+  try {
+    const mod = await import(`./content/posts/${slug}/${locale}.mdx`);
+    return mod.metadata;
+  } catch {
+    const mod = await import(`./content/posts/${slug}/en.mdx`);
+    return mod.metadata;
+  }
+}
+
+export async function getPosts(locale: string): Promise<Post[]> {
+  const slugs = await getSlugs();
+
+  const posts = await Promise.all(
+    slugs.map(async (slug) => {
+      const metadata = await loadMetadata(locale, slug);
+      return { slug, ...metadata } as Post;
     })
   );
 
-  const postsES = await Promise.all(
-    slugs.map(async ({ name }) => {
-      const { metadata } = await import(
-        `./app/[locale]/blog/[slug]/(es)/${name}/page.mdx`
-      );
-      return { slug: name, ...metadata };
-    })
+  return posts.sort(
+    (a, b) => +new Date(b.publishDate) - +new Date(a.publishDate)
   );
-  const postsPT = await Promise.all(
-    slugs.map(async ({ name }) => {
-      const { metadata } = await import(`./app/[locale]/blog/[slug]/(pt-br)/${name}/page.mdx`)
-      return { slug: name, ...metadata };
-    })
-  );
-
-  // Combine posts from all locales
-  const posts = [...postsEN, ...postsES, ...postsPT] as Post[];
-
-  // Sort posts from newest to oldest
-  posts.sort((a, b) => +new Date(b.publishDate) - +new Date(a.publishDate));
-
-  return posts;
 }
 
 export async function getPostsByCategory({
   category,
+  locale,
 }: {
   category: Category;
+  locale: string;
 }): Promise<Post[]> {
-  const allPosts = await getPosts();
+  const allPosts = await getPosts(locale);
 
   // Filter posts by specified category
   const posts = allPosts.filter(
@@ -78,11 +65,13 @@ export async function getPostsByCategory({
 export async function getPaginatedPosts({
   page,
   limit,
+  locale,
 }: {
   page: number;
   limit: number;
+  locale: string;
 }): Promise<{ posts: Post[]; total: number }> {
-  const allPosts = await getPosts();
+  const allPosts = await getPosts(locale);
 
   // Get a subset of posts pased on page and limit
   const paginatedPosts = allPosts.slice((page - 1) * limit, page * limit);
@@ -97,12 +86,14 @@ export async function getPaginatedPostsByCategory({
   page,
   limit,
   category,
+  locale,
 }: {
   page: number;
   limit: number;
   category: Category;
+  locale: string;
 }): Promise<{ posts: Post[]; total: number }> {
-  const allCategoryPosts = await getPostsByCategory({ category });
+  const allCategoryPosts = await getPostsByCategory({ locale, category });
 
   // Get a subset of posts pased on page and limit
   const paginatedCategoryPosts = allCategoryPosts.slice(
