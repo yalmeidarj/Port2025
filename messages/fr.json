@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "hero": {
+    "jobTitle": "Développeur Full-Stack & Créateur d’IA",
+    "greeting": "Bienvenue sur mon espace numérique.",
+    "getInTouch": "Me contacter"
+  },
+  "sections": {
+    "recentPosts": "Articles Récents",
+    "viewAll": "Voir tout",
+    "featuredProjects": "Projets en Vedette",
+    "techStack": "Technologies",
+    "allProjects": "Tous les Projets",
+    "getInTouch": "Me Contacter"
+  },
+  "tech": {
+    "frontend": "Frontend",
+    "backend": "Backend"
+  },
+  "projects": {
+    "title": "Projets",
+    "all": "Tous",
+    "web": "Web",
+    "mobile": "Mobile",
+    "other": "Autres",
+    "viewDetails": "Voir les Détails",
+    "details": "Détails"
+  },
+  "contact": {
+    "title": "Contactez-moi",
+    "description": "N'hésitez pas à me contacter pour collaborer ou simplement discuter.",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom complet",
+    "email": "Email",
+    "emailPlaceholder": "vous@example.com",
+    "subject": "Sujet",
+    "subjectPlaceholder": "De quoi s'agit-il ?",
+    "message": "Message",
+    "messagePlaceholder": "Tapez votre message ici...",
+    "send": "Envoyer"
+  },
+  "footer": {
+    "rights": "Tous droits réservés"
+  }
+}

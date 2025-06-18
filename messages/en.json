@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+
+  "hero": {
+    "jobTitle": "Full-Stack Software Engineer",
+    "greeting": "Nice to meet you!",
+    "getInTouch": "Get in touch"
+  },
+
+  "sections": {
+    "recentPosts": "Recent Posts",
+    "featuredProjects": "Featured Projects",
+    "techStack": "Tech Stack",
+    "getInTouch": "Get in touch",
+    "viewAll": "View all"
+  },
+
+  "projects": {
+    "allProjects": "All Projects",
+    "all": "All",
+    "web": "Web",
+    "mobile": "Mobile",
+    "other": "Other",
+    "viewDetails": "View details",
+    "details": "Details"
+  },
+
+  "tech": {
+    "frontend": "Front-end",
+    "backend": "Back-end"
+  },
+
+  "contact": {
+    "description": "Shoot me a message and I’ll get back to you within 24 hours.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "How can I help you?",
+    "message": "Message",
+    "messagePlaceholder": "Write your message here…",
+    "send": "Send message"
+  },
+
+  "footer": {
+    "rights": "All rights reserved"
+  }
+}

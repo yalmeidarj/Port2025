@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "jobTitle": "Desarrollador Full-Stack & Creador de IA",
+    "greeting": "Bienvenido a mi espacio digital.",
+    "getInTouch": "Contáctame"
+  },
+  "sections": {
+    "recentPosts": "Publicaciones Recientes",
+    "viewAll": "Ver todos",
+    "featuredProjects": "Proyectos Destacados",
+    "techStack": "Tecnologías",
+    "allProjects": "Todos los Proyectos",
+    "getInTouch": "Contáctame"
+  },
+  "tech": {
+    "frontend": "Frontend",
+    "backend": "Backend"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "all": "Todos",
+    "web": "Web",
+    "mobile": "Móvil",
+    "other": "Otros",
+    "viewDetails": "Ver Detalles",
+    "details": "Detalles"
+  },
+  "contact": {
+    "title": "Contáctame",
+    "description": "Siéntete libre de escribirme para colaborar o simplemente charlar.",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre completo",
+    "email": "Correo",
+    "emailPlaceholder": "tú@ejemplo.com",
+    "subject": "Asunto",
+    "subjectPlaceholder": "¿De qué se trata?",
+    "message": "Mensaje",
+    "messagePlaceholder": "Escribe tu mensaje aquí...",
+    "send": "Enviar"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados"
+  }
+}
