@@ -3,6 +3,8 @@ import Link from "next/link";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 
+export const revalidate = 60;
+
 interface BlogPost {
   slug: string;
   title: string;
@@ -16,7 +18,7 @@ interface BlogPost {
 async function getBlogPosts(locale: string): Promise<BlogPost[]> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const res = await fetch(`${baseUrl}/api/blog?locale=${locale}`, {
-    cache: 'no-store' // or 'force-cache' for static generation
+    next: { revalidate: 60 }
   });
   
   if (!res.ok) {
