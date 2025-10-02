@@ -4,7 +4,7 @@ import path from "path";
 import { routing } from "@/i18n/routing";
 
 export const revalidate = 60;
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 // GET /api/blog/[slug] - Get a specific blog post
 export async function GET(
   req: NextRequest,
