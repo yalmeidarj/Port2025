@@ -1,14 +1,12 @@
-"use client"
-
 import Link from "next/link"
 import { Github, Linkedin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
-import { useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
 
-export default function Header() {
-    const t = useTranslations("nav")
+export default async function Header() {
+    const t = await getTranslations("nav")
 
     return (
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -22,13 +20,14 @@ export default function Header() {
                     <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">{t("home")}</Link>
                     <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">{t("about")}</Link>
                     <Link href="#projects" className="text-sm font-medium hover:text-primary transition-colors">{t("projects")}</Link>
+                    <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors">Blog</Link>
                     <Link href="#contact" className="text-sm font-medium hover:text-primary transition-colors">{t("contact")}</Link>
                 </nav>
 
                 {/* Controls */}
                 <div className="flex items-center gap-2">
                     <ThemeToggle />
-                    <LanguageToggle />
+                    <LanguageToggle isScrolled={false} />
                     <div className="w-px h-6 bg-border mx-2" />
 
                     <Social icon={Github} href="https://github.com/yalmeida-hotmart" />

@@ -29,12 +29,18 @@ export function LanguageToggle({ isScrolled }: Props) {
     const pathname = usePathname();      // e.g. /fr/services or /en
     const dropdown = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     /* Figure out which locale is active from the first path segment */
     const current: Lang = useMemo(() => {
+        if (!mounted) return LANGS[0]; // Default to first language during SSR
         const seg = pathname.split('/')[1];          // '' | 'en' | 'fr' …
         return LANGS.find((l) => l.code === seg) ?? LANGS[0];
-    }, [pathname]);
+    }, [pathname, mounted]);
 
     function changeLanguage(lang: Lang) {
         if (lang.code === current.code) {
@@ -52,6 +58,15 @@ export function LanguageToggle({ isScrolled }: Props) {
 
         router.push(newPath || `/${lang.code}`);
         setOpen(false);
+    }
+
+    if (!mounted) {
+        return (
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+                <Languages className="h-4 w-4" />
+                <span className="sr-only">Switch language</span>
+            </Button>
+        );
     }
 
     return (

@@ -11,12 +11,11 @@
     "getInTouch": "Contáctame"
   },
   "sections": {
-    "recentPosts": "Publicaciones Recientes",
-    "viewAll": "Ver todos",
     "featuredProjects": "Proyectos Destacados",
     "techStack": "Tecnologías",
     "allProjects": "Todos los Proyectos",
-    "getInTouch": "Contáctame"
+    "getInTouch": "Contáctame",
+    "viewAll": "Ver todos"
   },
   "tech": {
     "frontend": "Frontend",

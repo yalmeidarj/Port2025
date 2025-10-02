@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Markdown Showcase</title>
+    <meta name="description" content="A comprehensive example of common (and handy) Markdown features">
+  <meta name="author" content="Yuri Almeida">
+  <meta property="og:title" content="Markdown Showcase">
+  <meta property="og:type" content="article">
+  <meta property="og:description" content="A comprehensive example of common (and handy) Markdown features">
+  <meta property="og:url" content="https://github.com/yurialmeida">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Markdown Showcase">
+  <meta name="twitter:description" content="A comprehensive example of common (and handy) Markdown features">
+  <meta property="article:published_time" content="2025-09-08">
+  <meta property="article:tag" content="markdown">
+  <meta property="article:tag" content="html">
+  <meta property="article:tag" content="converter">
+  <meta property="article:author" content="Yuri Almeida">
+  <style>
+  /* --- Embedded CSS (user CSS will be appended below the base reset) --- */
+  /* === Deep Blue (Midnight) === */
+:root {
+    --bg: #0a0f1a;
+    --fg: #e8eefc;
+    --muted: #9aa7bd;
+    --accent: #2b6cde;
+    /* deep blue */
+    --code-bg: #0b1320;
+    --code-fg: #eef3ff;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #ffffff;
+        --fg: #10131a;
+        --muted: #546178;
+        --accent: #2557c5;
+        --code-bg: #f2f5fb;
+        --code-fg: #0f1220;
+    }
+}
+
+/* Base */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 15px/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+a {
+    color: var(--accent);
+    text-underline-offset: .18em;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Layout */
+.container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+}
+
+.markdown-body {
+    word-break: break-word;
+}
+
+/* Top bar / “Terminal” header */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid color-mix(in oklab, var(--fg) 14%, transparent);
+}
+
+.topbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: .9rem 1.25rem .6rem;
+}
+
+.brand {
+    display: inline-block;
+    padding: .18rem .5rem;
+    border: 2px solid var(--accent);
+    border-radius: .35rem;
+    background: color-mix(in oklab, var(--accent) 12%, transparent);
+    color: var(--fg);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-weight: 600;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--fg);
+    opacity: .9;
+}
+
+.menu a:hover {
+    color: var(--accent);
+}
+
+.lang {
+    margin-left: 1rem;
+    padding: .15rem .5rem;
+    border: 1.5px solid var(--accent);
+    border-radius: .35rem;
+    color: var(--fg);
+    opacity: .9;
+}
+
+.topbar .bar {
+    height: 16px;
+    background:
+        repeating-linear-gradient(to right,
+            var(--accent) 0 3px,
+            transparent 3px 9px);
+    opacity: .95;
+}
+
+/* Headings with dotted “ruler” accent */
+h1,
+h2 {
+    margin-top: 2rem;
+    margin-bottom: .6rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.35rem;
+}
+
+h1.title-accent::after,
+.markdown-body h1::after {
+    content: "";
+    display: block;
+    height: 6px;
+    margin-top: .6rem;
+    background:
+        repeating-linear-gradient(to right,
+            var(--accent) 0 4px,
+            transparent 4px 10px);
+}
+
+/* Paragraphs & misc */
+hr {
+    border: none;
+    height: 1px;
+    background: color-mix(in oklab, var(--fg) 18%, transparent);
+    margin: 2rem 0;
+}
+
+blockquote {
+    margin: 1rem 0;
+    padding: .75rem 1rem;
+    border-left: 4px solid var(--accent);
+    background: color-mix(in oklab, var(--accent) 8%, transparent);
+    border-radius: .25rem;
+}
+
+/* Code */
+code {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: .12rem .35rem;
+    border-radius: .25rem;
+}
+
+pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 1rem;
+    border-radius: .5rem;
+    overflow: auto;
+}
+
+pre code {
+    background: transparent;
+    padding: 0;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow: auto;
+}
+
+th,
+td {
+    border: 1px solid color-mix(in oklab, var(--fg) 20%, transparent);
+    padding: .5rem .6rem;
+}
+
+th {
+    background: color-mix(in oklab, var(--fg) 6%, transparent);
+    text-align: left;
+}
+
+/* TOC */
+nav.toc {
+    border: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+    border-radius: .5rem;
+    padding: 1rem;
+    margin: 1.25rem 0 1.75rem;
+    font-size: .95rem;
+    background: color-mix(in oklab, var(--fg) 4%, transparent);
+}
+
+nav.toc summary {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+nav.toc ul {
+    margin: .5rem 0 0 0;
+    padding-left: 1rem;
+    list-style: none;
+}
+
+nav.toc li {
+    margin: .25rem 0;
+}
+
+nav.toc a {
+    text-decoration: none;
+}
+
+/* Framed media like the screenshot */
+.markdown-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1rem auto;
+    background: var(--bg);
+    /* inner border + outer frame using box-shadows */
+    border: 4px solid var(--accent);
+    box-shadow:
+        0 0 0 6px color-mix(in oklab, var(--accent) 28%, transparent),
+        0 0 0 10px var(--bg);
+}
+
+/* Small “tag” label style you can apply if you wrap images in <figure> */
+.figure-tag {
+    display: inline-block;
+    margin: .5rem 0 0 .5rem;
+    padding: .2rem .45rem;
+    border-radius: .25rem;
+    background: color-mix(in oklab, var(--accent) 22%, transparent);
+    border: 1px solid var(--accent);
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--fg);
+}
+
+/* Footer */
+.site-footer {
+    opacity: .8;
+    border-top: 1px solid color-mix(in oklab, var(--fg) 14%, transparent);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    font-size: .9rem;
+}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <!-- <div class="wrap">
+      <nav class="menu">
+        <a class="brand" href="#">Markdown Showcase</a>
+        <a href="#">About</a>
+        <a href="#">Showcase</a>
+        <a href="#">Show more ▾</a>
+      </nav>
+      <div class="lang">English ▾</div>
+    </div> 
+    <div class="bar"></div>
+    -->
+  </header>
+
+  <main class="container">
+    <article class="markdown-body">
+        <!--
+      <h1 class="title-accent" style="margin-top:0;">Markdown Showcase</h1>
+      
+  This file demonstrates most of GitHub-Flavored Markdown (GFM) and many common extensions.
+  Save as `markdown-showcase.md` and preview it in VS Code, GitHub, or your favorite Markdown viewer.
+-->
+
+<!-- <h1>🧭 Markdown Showcase</h1> -->
+<!-- <blockquote> -->
+<p>A living cheat-sheet of Markdown patterns you can copy/paste.
+<em>Tip</em>: Use the table of contents below to jump to sections.</p>
+</blockquote>
+<p><strong>Table of Contents</strong>
+- <a href="#headings">Headings</a>
+- <a href="#text-styles">Text Styles</a>
+- <a href="#paragraphs--line-breaks">Paragraphs &amp; Line Breaks</a>
+- <a href="#lists">Lists</a>
+- <a href="#task-lists">Task Lists</a>
+- <a href="#links">Links</a>
+- <a href="#images">Images</a>
+- <a href="#blockquotes">Blockquotes</a>
+- <a href="#code">Code</a>
+- <a href="#tables">Tables</a>
+- <a href="#footnotes">Footnotes</a>
+- <a href="#definitions">Definitions</a>
+- <a href="#details--summary">Details / Summary</a>
+- <a href="#horizontal-rules">Horizontal Rules</a>
+- <a href="#escaping--special-characters">Escaping &amp; Special Characters</a>
+- <a href="#callouts-ad-hoc">Callouts (Ad-hoc)</a>
+- <a href="#mermaid-diagrams">Mermaid Diagrams</a>
+- <a href="#html-in-markdown">HTML in Markdown</a>
+- <a href="#misc-tips">Misc Tips</a>
+- <a href="#references">References</a></p>
+<hr />
+<h2>Headings</h2>
+<h1>H1 — Big Title</h1>
+<h2>H2 — Section</h2>
+<h3>H3 — Subsection</h3>
+<h4>H4 — Minor Heading</h4>
+<h5>H5 — Tiny Heading</h5>
+<h6>H6 — Microscopic Heading</h6>
+<hr />
+<h2>Text Styles</h2>
+<p>Normal text, with <strong>bold</strong>, <em>italic</em>, and <strong><em>bold italic</em></strong>.
+~~Strikethrough~~ is useful for change logs.
+Inline <code>code</code> for identifiers, <code>npm run build</code>, or variables like <code>FOO=bar</code>.
+Highlight ==important text== with <code>&lt;mark&gt;</code> in HTML: <mark>this is highlighted</mark>.
+Superscript: 2^10^ and Subscript: H~2~O (may require HTML: H<sub>2</sub>O).
+Emoji: 🎯 🚀 😄 or via shortcodes: :sparkles: :warning: :memo:</p>
+<blockquote>
+<p><strong>Note:</strong> GFM supports tables, task lists, strikethrough, autolinks, and footnotes.</p>
+</blockquote>
+<hr />
+<h2>Paragraphs &amp; Line Breaks</h2>
+<p>A paragraph is made of one or more lines of text separated by a blank line.</p>
+<p>Line breaks
+occur when you end a line with two spaces.
+Or configure your renderer to treat single newlines as breaks.</p>
+<hr />
+<h2>Lists</h2>
+<h3>Unordered</h3>
+<ul>
+<li>Apples</li>
+<li>Fuji</li>
+<li>Gala</li>
+<li>Oranges</li>
+<li>Navel</li>
+<li>Blood orange</li>
+<li>Bananas</li>
+</ul>
+<h3>Ordered</h3>
+<ol>
+<li>First</li>
+<li>Second</li>
+<li>Sub-step A</li>
+<li>Sub-step B</li>
+<li>Third</li>
+</ol>
+<h3>Mixed</h3>
+<ul>
+<li>Install dependencies
+  1. <code>npm install</code>
+  2. <code>npm run dev</code></li>
+<li>Configure environment</li>
+<li><code>.env.local</code></li>
+<li>API keys</li>
+</ul>
+<hr />
+<h2>Task Lists</h2>
+<ul>
+<li>[x] Write spec</li>
+<li>[x] Add tests</li>
+<li>[ ] Implement feature</li>
+<li>[ ] Review &amp; merge</li>
+</ul>
+<blockquote>
+<p>Tasks can be nested:
+- [ ] Parent
+  - [x] Child done
+  - [ ] Child pending</p>
+</blockquote>
+<hr />
+<h2>Links</h2>
+<p>Inline link: <a href="https://www.markdownguide.org/">Markdown Guide</a>
+Reference link: <a href="https://github.com">GitHub</a> or <a href="https://github.com/your/repository">this repo</a>.
+Autolink (GFM): https://example.com</p>
+<hr />
+<h2>Images</h2>
+<p>Inline image:</p>
+<p><img alt="Sample image alt text" src="https://placekitten.com/400/220" title="Optional title" /></p>
+<p>Reference image:</p>
+<p><img alt="Another cat" src="./static/bode.webp" title="Kitten" /></p>
+<blockquote>
+<p>Tip: For local images, use relative paths like <code>./assets/diagram.png</code>.</p>
+</blockquote>
+<hr />
+<h2>Blockquotes</h2>
+<blockquote>
+<p>Single-level blockquote for quotes or callouts.</p>
+<p>Multi-level:</p>
+<blockquote>
+<p>Nested quote level 2</p>
+<blockquote>
+<p>Nested quote level 3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr />
+<h2>Code</h2>
+<h3>Inline</h3>
+<p>Use <code>console.log("hello")</code> for quick debug.</p>
+<h3>Fenced Code Blocks</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Bash</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>dist<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>dist/hello.txt
+ls<span class="w"> </span>-lah<span class="w"> </span>dist
+</code></pre></div>
+    </article>
+
+    <footer class="site-footer">
+      <p>Generated by md2html · <span>©</span> <span id="y">Markdown Showcase</span></p>
+    </footer>
+  </main>
+</body>
+</html>

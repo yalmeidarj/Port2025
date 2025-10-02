@@ -67,9 +67,14 @@ export default async function LocaleLayout({
     }
 
     return (
-        <html lang={locale}>
+        <html lang={locale} suppressHydrationWarning>
             <body className={inter.className}>
-                <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+                <ThemeProvider 
+                    attribute="class" 
+                    defaultTheme="system" 
+                    enableSystem 
+                    disableTransitionOnChange
+                >
                 <Toaster position="top-center" richColors />
                     <NextIntlClientProvider>{children}</NextIntlClientProvider>
                 </ThemeProvider>

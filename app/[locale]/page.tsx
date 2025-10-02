@@ -1,6 +1,5 @@
 // import { Hero } from "@/components/sections/hero"
 // import { Header } from "@/components/layout/header"
-// import RecentPosts from "@/components/sections/recent-posts"
 // import { FeaturedProjects } from "@/components/sections/featured-projects"
 // import { TechStack } from "@/components/sections/tech-stack"
 // import { ProjectsTabs } from "@/components/sections/projects-tabs"
@@ -13,7 +12,6 @@ import { ContactSection } from "@/components/sections/contact";
 import FeaturedProjects from "@/components/sections/featured-projects";
 import Hero from "@/components/sections/hero";
 import ProjectsTabs from "@/components/sections/projects-tabs";
-import RecentPosts from "@/components/sections/recent-posts";
 import TechStack from "@/components/sections/tech-stack";
 
 export default function HomePage() {
@@ -21,17 +19,6 @@ export default function HomePage() {
         <div className="min-h-screen bg-background transition-colors duration-300">
             <Header />
             
-            <RecentPosts
-                posts={[
-                    {
-                        title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                        slug: "lorem-ipsum-dolor-sit-amet-consectetur-adipisicing-elit",
-                        date: "May 10, 2023",
-                        excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                        tags: ["Next.js", "React", "JavaScript"],
-                    }
-                ]}
-            />
             <FeaturedProjects
                 projects={[
                     {

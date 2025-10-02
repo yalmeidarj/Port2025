@@ -16,12 +16,11 @@ export default async function Contact() {
                 <p className="section-sub max-w-2xl mx-auto">{t('subtitle')}</p>
                 <div className="mt-16 grid lg:grid-cols-2 gap-16 text-left">
                     <ContactForm
-                        action="/api/send"
                         placeholders={{
                             first: t('form.first'),
-                            last: t('form.last'),
                             email: t('form.email'),
                             message: t('form.message'),
+                            subject: t('form.subject'),
                             send: t('form.send'),
                         }}
                     />

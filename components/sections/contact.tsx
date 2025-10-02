@@ -1,14 +1,9 @@
 import ContactForm from "@/components/contact-form"
 import { Mail, Linkedin, Github } from "lucide-react"
-import { getTranslations, getLocale } from "next-intl/server"
-import { Posts } from "../posts/Posts"
-import { Pagination } from "../posts/Pagination"
-import { getPaginatedPosts, postsPerPage } from "@/posts"
+import { getTranslations } from "next-intl/server"
 
 export async function ContactSection() {
     const t = await getTranslations("contact")
-    const locale = await getLocale()
-    const { posts, total } = await getPaginatedPosts({ page: 1, limit: postsPerPage, locale });
     return (
         <section id="contact" className="container py-12">
             <h2 className="text-2xl font-bold mb-6">{t("title")}</h2>
@@ -46,11 +41,6 @@ export async function ContactSection() {
                         </div>
                     </div>
                 </div>
-                <div className="">
-                    <Posts posts={posts} />
-
-                    <Pagination baseUrl="/page" page={1} perPage={postsPerPage} total={total} />
-                    </div>
                 <div>
                     <ContactForm
                         placeholders={{

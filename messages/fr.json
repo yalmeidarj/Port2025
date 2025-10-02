@@ -11,12 +11,11 @@
     "getInTouch": "Me contacter"
   },
   "sections": {
-    "recentPosts": "Articles Récents",
-    "viewAll": "Voir tout",
     "featuredProjects": "Projets en Vedette",
     "techStack": "Technologies",
     "allProjects": "Tous les Projets",
-    "getInTouch": "Me Contacter"
+    "getInTouch": "Me Contacter",
+    "viewAll": "Voir tout"
   },
   "tech": {
     "frontend": "Frontend",

@@ -11,18 +11,18 @@
     "getInTouch": "Entre em contato"
   },
   "sections": {
-    "recentPosts": "Posts Recentes",
-    "viewAll": "Ver todos",
     "featuredProjects": "Projetos em Destaque",
     "techStack": "Tecnologias",
     "allProjects": "Todos os Projetos",
-    "getInTouch": "Entre em Contato"
+    "getInTouch": "Entre em Contato",
+    "viewAll": "Ver todos"
   },
   "tech": {
     "frontend": "Frontend",
     "backend": "Backend"
   },
   "projects": {
+    "allProjects": "Todos os Projetos",
     "title": "Projetos",
     "all": "Todos",
     "web": "Web",
