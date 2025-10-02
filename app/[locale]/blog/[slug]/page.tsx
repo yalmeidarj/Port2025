@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { routing } from "@/i18n/routing";
-import { getBlogPosts } from "@/app/api/blog/route";
+import { getBlogPosts } from "@/lib/blog";
 
 interface BlogPost {
   slug: string;

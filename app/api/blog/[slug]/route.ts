@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { routing } from "@/i18n/routing";
 
 export const revalidate = 60;
 export const dynamic = 'force-static';
@@ -11,9 +12,17 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    const { searchParams } = new URL(req.url);
-    const locale = searchParams.get('locale') || 'en';
-    
+    const { searchParams, pathname } = new URL(req.url);
+    let locale = searchParams.get('locale');
+    if (!locale) {
+      // Try to extract locale from the URL path (e.g., /es/blog/slug)
+      // Supported locales from routing.locales
+      const supportedLocales = routing.locales;
+      // Split pathname and find the first segment that matches a supported locale
+      const segments = pathname.split('/').filter(Boolean);
+  const foundLocale = segments.find(seg => supportedLocales.includes(seg as typeof routing.locales[number]));
+      locale = foundLocale || routing.defaultLocale;
+    }
     const filePath = path.join(process.cwd(), "public", "blog", locale, "posts", `${slug}.html`);
     
     // Check if file exists
