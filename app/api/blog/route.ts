@@ -15,7 +15,7 @@ interface BlogPost {
 }
 
 // Function to read blog posts from public directory for a specific locale
-async function getBlogPosts(locale: string = "en"): Promise<BlogPost[]> {
+export async function getBlogPosts(locale: string = "en"): Promise<BlogPost[]> {
   const blogDir = path.join(process.cwd(), "public", "blog", locale, "posts");
   
   try {

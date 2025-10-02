@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { routing } from "@/i18n/routing";
+import { getBlogPosts } from "@/app/api/blog/route";
 
 interface BlogPost {
   slug: string;
@@ -46,6 +48,17 @@ export async function generateMetadata({
     title: `${post.title} | Blog`,
     description: post.excerpt,
   };
+}
+
+export async function generateStaticParams() {
+  const entries = await Promise.all(
+    routing.locales.map(async (locale) => {
+      const posts = await getBlogPosts(locale);
+      return posts.map((post) => ({ locale, slug: post.slug }));
+    })
+  );
+
+  return entries.flat();
 }
 
 export default async function BlogPostPage({

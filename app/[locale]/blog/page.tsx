@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { routing } from "@/i18n/routing";
 
 export const revalidate = 60;
 
@@ -33,10 +34,14 @@ export const metadata: Metadata = {
   description: "Read my latest thoughts on web development, technology, and more.",
 };
 
-export default async function BlogPage({ 
-  params 
-}: { 
-  params: Promise<{ locale: string }> 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function BlogPage({
+  params
+}: {
+  params: Promise<{ locale: string }>
 }) {
   const { locale } = await params;
   const posts = await getBlogPosts(locale);
