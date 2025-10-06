@@ -5,6 +5,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { routing } from "@/i18n/routing";
 import { getBlogPosts } from "@/lib/blog";
+import { renderHtmlToReact } from "./render-html";
 
 interface BlogPost {
   slug: string;
@@ -94,10 +95,7 @@ export default async function BlogPostPage({
               </div>
             </header>
 
-            <div
-              className="prose-content"
-              dangerouslySetInnerHTML={{ __html: post!.content }}
-            />
+            <div className="prose-content">{renderHtmlToReact(post!.content)}</div>
           </article>
         </div>
       </main>
