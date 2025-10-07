@@ -1,9 +1,7 @@
-// next.config.ts
-import type { NextConfig } from "next";
+﻿import type { NextConfig } from "next";
 import createMdxPlugin from "@next/mdx";
 import createNextIntlPlugin from "next-intl/plugin";
 
-// 1. MDX ────────────────────────────────────────────────────────────────
 const withMdx = createMdxPlugin({
   extension: /\.mdx?$/,
   options: {
@@ -12,17 +10,41 @@ const withMdx = createMdxPlugin({
   },
 });
 
-// 2. next-intl (nenhum parâmetro necessário) ───────────────────────────
 const withNextIntl = createNextIntlPlugin();
 
-// 3. Config base ───────────────────────────────────────────────────────
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   experimental: {
-    // deixe como "false" se for usar remark/rehype extra
     mdxRs: false,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placekitten.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "port2025.b-cdn.net",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.yalmeida.world",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
-// 4. Compose (outermost = intl) ────────────────────────────────────────
 export default withNextIntl(withMdx(nextConfig));

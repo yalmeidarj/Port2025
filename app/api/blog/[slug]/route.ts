@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { routing } from "@/i18n/routing";
+import { extractBlogMetadata, extractExcerpt } from "@/lib/blog";
 
 export const revalidate = 60;
 export const dynamic = 'force-dynamic';
@@ -31,27 +32,26 @@ export async function GET(
     }
     
     const content = fs.readFileSync(filePath, "utf-8");
-    
-    // Extract metadata from HTML
-    const titleMatch = content.match(/<title[^>]*>([^<]+)<\/title>/i);
-    const title = titleMatch ? titleMatch[1] : slug.replace(/-/g, " ");
-    
-    const excerptMatch = content.match(/<p[^>]*>([^<]+)<\/p>/i);
-    const excerpt = excerptMatch ? excerptMatch[1].substring(0, 150) + "..." : content.substring(0, 150) + "...";
-    
-    // Extract date from HTML meta tag or use default
-    const dateMatch = content.match(/<meta name="date" content="([^"]+)"/i);
-    const date = dateMatch ? dateMatch[1] : "2025-01-01"; // Default date for consistency
-    
+
+    const metadata = extractBlogMetadata(content);
+
+    const fallbackTitle = slug.replace(/-/g, " ");
+    const title = metadata.title ?? fallbackTitle;
+    const excerpt = metadata.description ?? extractExcerpt(content);
+    const date = metadata.publishedTime ?? "2025-01-01"; // Default date for consistency
+    const author = metadata.author ?? "Yuri Almeida";
+    const tags = metadata.tags.length > 0 ? metadata.tags : [];
+
     return NextResponse.json({
       slug,
       title,
       excerpt,
       date,
-      author: "Yuri Almeida",
-      tags: [],
+      author,
+      tags,
       content,
-      locale
+      locale,
+      metadata,
     });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch blog post" }, { status: 500 });

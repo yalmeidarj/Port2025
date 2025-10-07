@@ -5,17 +5,8 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { routing } from "@/i18n/routing";
 import { getBlogPosts } from "@/lib/blog";
-
-interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  author: string;
-  tags: string[];
-  content: string;
-  locale: string;
-}
+import type { BlogPost } from "@/lib/blog";
+import { renderHtmlToReact } from "./render-html";
 
 // Optionally set route-level revalidation (instead of per-fetch)
 export const revalidate = 60; // seconds (ISR). Page/data revalidates at most every 60s. :contentReference[oaicite:1]{index=1}
@@ -44,9 +35,56 @@ export async function generateMetadata({
 
   if (!post) return { title: "Post Not Found" };
 
+  const description = post.metadata.description ?? post.excerpt;
+  const title = post.metadata.title ?? post.title;
+
+  const openGraphTitle =
+    post.metadata.openGraph["og:title"] ?? post.metadata.title ?? post.title;
+  const openGraphDescription =
+    post.metadata.openGraph["og:description"] ?? description;
+
+  const openGraph: NonNullable<Metadata["openGraph"]> = {
+    title: openGraphTitle,
+    description: openGraphDescription,
+    type: (post.metadata.openGraph["og:type"] as any) ?? "article",
+  };
+
+  if (post.metadata.openGraph["og:url"]) {
+    openGraph.url = post.metadata.openGraph["og:url"];
+  }
+
+  if (post.metadata.publishedTime) {
+    openGraph.publishedTime = post.metadata.publishedTime;
+  }
+
+  if (post.metadata.author) {
+    openGraph.authors = [post.metadata.author];
+  }
+
+  if (post.metadata.tags.length > 0) {
+    openGraph.tags = post.metadata.tags;
+  }
+
+  const twitterMetadata: NonNullable<Metadata["twitter"]> | undefined =
+    Object.keys(post.metadata.twitter).length > 0
+      ? {
+          card: (post.metadata.twitter["twitter:card"] as any) ?? "summary_large_image",
+          title:
+            post.metadata.twitter["twitter:title"] ??
+            post.metadata.openGraph["og:title"] ??
+            title,
+          description:
+            post.metadata.twitter["twitter:description"] ??
+            openGraphDescription,
+        }
+      : undefined;
+
   return {
-    title: `${post.title} | Blog`,
-    description: post.excerpt,
+    title: `${title} | Blog`,
+    description,
+    authors: post.metadata.author ? [{ name: post.metadata.author }] : undefined,
+    openGraph,
+    twitter: twitterMetadata,
   };
 }
 
@@ -93,11 +131,7 @@ export default async function BlogPostPage({
                 </time>
               </div>
             </header>
-
-            <div
-              className="prose-content"
-              dangerouslySetInnerHTML={{ __html: post!.content }}
-            />
+            <div className="prose-content">{renderHtmlToReact(post!.content)}</div>
           </article>
         </div>
       </main>
