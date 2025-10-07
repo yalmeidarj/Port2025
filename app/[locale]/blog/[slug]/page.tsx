@@ -43,27 +43,30 @@ export async function generateMetadata({
   const openGraphDescription =
     post.metadata.openGraph["og:description"] ?? description;
 
-  const openGraph: NonNullable<Metadata["openGraph"]> = {
+  const rawOpenGraphType = post.metadata.openGraph["og:type"];
+  const openGraphType = rawOpenGraphType?.toLowerCase() === "website" ? "website" : "article";
+
+  const baseOpenGraph = {
     title: openGraphTitle,
     description: openGraphDescription,
-    type: (post.metadata.openGraph["og:type"] as any) ?? "article",
+    ...(post.metadata.openGraph["og:url"]
+      ? { url: post.metadata.openGraph["og:url"] }
+      : {}),
   };
 
-  if (post.metadata.openGraph["og:url"]) {
-    openGraph.url = post.metadata.openGraph["og:url"];
-  }
-
-  if (post.metadata.publishedTime) {
-    openGraph.publishedTime = post.metadata.publishedTime;
-  }
-
-  if (post.metadata.author) {
-    openGraph.authors = [post.metadata.author];
-  }
-
-  if (post.metadata.tags.length > 0) {
-    openGraph.tags = post.metadata.tags;
-  }
+  const openGraph =
+    openGraphType === "article"
+      ? ({
+          ...baseOpenGraph,
+          type: "article",
+          publishedTime: post.metadata.publishedTime,
+          authors: post.metadata.author ? [post.metadata.author] : undefined,
+          tags: post.metadata.tags.length > 0 ? post.metadata.tags : undefined,
+        } satisfies NonNullable<Metadata["openGraph"]>)
+      : ({
+          ...baseOpenGraph,
+          type: "website",
+        } satisfies NonNullable<Metadata["openGraph"]>);
 
   const twitterMetadata: NonNullable<Metadata["twitter"]> | undefined =
     Object.keys(post.metadata.twitter).length > 0
@@ -140,3 +143,5 @@ export default async function BlogPostPage({
     </div>
   );
 }
+
+
