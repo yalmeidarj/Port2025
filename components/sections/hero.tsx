@@ -7,10 +7,10 @@ export default async function Hero() {
 
     return (
         <section className="container py-8">
-            <div className="bg-primary/10 dark:bg-primary/20 rounded-lg p-8 max-w-4xl mx-auto transition-colors duration-300">
+            <div className="bg-primary/10 dark:bg-primary/20 rounded-lg p-8  mx-auto transition-colors duration-300">
                 <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
-                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20 flex-shrink-0">
-                        <Image src="/placeholder.svg?height=128&width=128" alt="Yuri Almeida" fill className="object-cover" priority />
+                    <div className="relative w-32 h-32 drop-shadow-ring shadow-md rounded-full overflow-hidden border-4 border-primary/20 flex-shrink-0">
+                        <Image src="https://port2025.b-cdn.net/Portfolio/Myself/profile.jpg" alt="Yuri Almeida" fill className="object-cover" priority />
                     </div>
 
                     <div className="space-y-4 text-center md:text-left">
@@ -19,7 +19,7 @@ export default async function Hero() {
                             <p className="text-muted-foreground">{t("jobTitle")}</p>
                         </div>
 
-                        <p className="text-foreground">
+                        <p className="text-foreground text-start">
                             {t("greeting")}{" "}
                             <Link href="#contact" className="text-primary hover:underline">
                                 {t("getInTouch")}

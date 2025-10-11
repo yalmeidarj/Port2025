@@ -5,44 +5,82 @@
     "projects": "Proyectos",
     "contact": "Contacto"
   },
+
   "hero": {
-    "jobTitle": "Desarrollador Full-Stack & Creador de IA",
-    "greeting": "Bienvenido a mi espacio digital.",
-    "getInTouch": "Contáctame"
+    "jobTitle": "Ingeniero de Software Full-Stack",
+    "greeting": "Diseño y construyo sistemas, desde herramientas de automatización hasta flujos de IA, con un enfoque en la eficiencia. Me importa resolver problemas operativos reales y crear herramientas que reduzcan la fricción para usuarios y equipos. Mi trabajo se basa en convertir procesos complejos en pasos confiables y replicables.",
+    "getInTouch": "Ponte en contacto"
   },
+
   "sections": {
     "featuredProjects": "Proyectos Destacados",
     "techStack": "Tecnologías",
-    "allProjects": "Todos los Proyectos",
     "getInTouch": "Contáctame",
     "viewAll": "Ver todos"
   },
-  "tech": {
-    "frontend": "Frontend",
-    "backend": "Backend"
-  },
+
   "projects": {
-    "title": "Proyectos",
+    "allProjects": "Todos los Proyectos",
     "all": "Todos",
     "web": "Web",
     "mobile": "Móvil",
     "other": "Otros",
-    "viewDetails": "Ver Detalles",
+    "viewDetails": "Ver detalles",
     "details": "Detalles"
   },
+
+  "projectsCard": {
+    "door-2-door": {
+      "id": "1",
+      "title": "Door-2-Door",
+      "description": "Door-2-Door es una consola de operaciones de campo creada para equipos de despliegue de fibra. Ayuda a coordinar visitas puerta a puerta, registrar cada intento de contacto y sincronizar actualizaciones con sistemas internos. La aplicación combina una vista basada en mapas, registros detallados por vivienda y seguimiento de turnos en tiempo real, permitiendo que agentes, supervisores y administradores mantengan el proyecto en curso.",
+      "image": "https://port2025.b-cdn.net/Portfolio/door2door/integrated-map.png",
+      "technologies": ["Next.js", "Convex", "oAuth", "React", "Tailwind CSS"],
+      "github": "https://github.com/yalmeidarj/Door-2-Door",
+      "link": "https://project-one.com",
+      "category": "web"
+    },
+    "tdx":{
+      "id": "2",
+      "title": "Página Landing de TDX",
+      "description": "TDX es un equipo de ventas puerta a puerta enfocado en captar nuevos clientes para internet de fibra. La Landing Page de TDX fue construida con Next.js y Tailwind CSS para presentar los servicios y valores de la empresa. El sitio cuenta con un diseño moderno, diseño responsive y elementos interactivos que atraen a los visitantes e impulsan su interés en TDX.",
+      "image": "https://port2025.b-cdn.net/Portfolio/Screenshot%202025-10-06%20203723.png",
+      "technologies": ["Next.js", "Tailwind CSS", "React"],
+      "github": "https://github.com/yalmeidarj/tdx-marketing-site",
+      "link": "https://tdx-solutions.vercel.app",
+      "category": "web"
+    },
+    "auto-notifier":{
+      "id": "3",
+      "title": "Auto-Notifier",
+      "description": "Auto-Notifier es una herramienta ligera en Python diseñada para enviar notificaciones instantáneas cuando scripts de larga duración terminan o fallan. Elimina la necesidad de monitorear constantemente la terminal integrándose fácilmente mediante decoradores o context managers. Desarrolladores y analistas pueden enfocarse en su trabajo mientras Auto-Notifier envía alertas al finalizar, fallar o llegar a puntos clave — una solución simple para un problema común de productividad.",
+      "image": "https://port2025.b-cdn.net/Portfolio/auto-notifier/notify_when_done_decorator.png",
+      "technologies": ["Python", "Decorators", "CLI Tools", "Productividad"],
+      "github": "https://github.com/yalmeidarj/auto-notifier",
+      "link": "https://pypi.org/project/auto-notifier/",
+      "category": "other"
+    }
+  },
+
+  "tech": {
+    "frontend": "Front-end",
+    "backend": "Back-end"
+  },
+
   "contact": {
-    "title": "Contáctame",
-    "description": "Siéntete libre de escribirme para colaborar o simplemente charlar.",
+    "title": "Contacto",
+    "description": "Envíame un mensaje y te responderé dentro de 24 horas.",
     "name": "Nombre",
-    "namePlaceholder": "Tu nombre completo",
-    "email": "Correo",
+    "namePlaceholder": "Tu nombre",
+    "email": "Correo electrónico",
     "emailPlaceholder": "tú@ejemplo.com",
     "subject": "Asunto",
-    "subjectPlaceholder": "¿De qué se trata?",
+    "subjectPlaceholder": "¿Cómo puedo ayudarte?",
     "message": "Mensaje",
-    "messagePlaceholder": "Escribe tu mensaje aquí...",
-    "send": "Enviar"
+    "messagePlaceholder": "Escribe tu mensaje aquí…",
+    "send": "Enviar mensaje"
   },
+
   "footer": {
     "rights": "Todos los derechos reservados"
   }

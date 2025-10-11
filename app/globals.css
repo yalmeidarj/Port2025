@@ -1,5 +1,8 @@
 /* globals.css — Tailwind v4 */
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 /* ----------------------------*/
 /* Design tokens               */
@@ -56,6 +59,36 @@
   --color-ring: hsl(224.3 76.3% 48%);
 }
 
+/* Hide scrollbar */
+@layer utilities {
+  /* Chrome, Safari, and Opera */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox */
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+
+  /* IE and Edge */
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+  }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee var(--loop-duration, 24s) linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
 /* ----------------------------*/
 /* Base layer                  */
 /* ----------------------------*/
@@ -89,6 +122,10 @@
   from { height: var(--radix-accordion-content-height); }
   to   { height: 0; }
 }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 @utility accordion-down { animation: accordion-down .2s ease-out; }
 @utility accordion-up   { animation: accordion-up   .2s ease-out; }
 
@@ -107,4 +144,13 @@
   .dark ::-webkit-scrollbar-track  { background: var(--color-muted); }
   .dark ::-webkit-scrollbar-thumb  { background: var(--color-muted-foreground); }
   .dark ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

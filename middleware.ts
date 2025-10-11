@@ -11,13 +11,14 @@
 // };
 // middleware.ts
 import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
 
 export default createMiddleware({
   // Languages your app serves
-  locales: ['en', 'pt-BR', 'es'],
-  defaultLocale: 'en',
+  locales: routing.locales,
+  defaultLocale: routing.defaultLocale,
 
-  // Keeps “/” un-prefixed for the default locale
+  // Keeps “/“ un-prefixed for the default locale
   localePrefix: 'as-needed'
 });
 

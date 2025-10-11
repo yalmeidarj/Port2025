@@ -88,6 +88,10 @@ function normalizeAttributes(element: HTMLElement) {
 }
 
 function transformNode(node: HtmlNode, key: number): React.ReactNode {
+  if (node.nodeType === 10) {
+    return null;
+  }
+
   if (node.nodeType === 3) {
     const textNode = node as TextNode;
     // Ignore pure whitespace text nodes (e.g. single spaces that become {' '})
@@ -101,6 +105,10 @@ function transformNode(node: HtmlNode, key: number): React.ReactNode {
 
   const element = node as HTMLElement;
   const tagName = element.tagName.toLowerCase();
+
+  if (tagName === "!doctype") {
+    return null;
+  }
 
   if (IGNORED_TAGS.has(tagName)) {
     return null;
@@ -203,6 +211,7 @@ export function renderHtmlToReact(html: string): React.ReactNode {
   });
 
   const nodes = root.childNodes
+    .filter((node) => node.nodeType !== 10) // drop DOCTYPE declarations
     .map((node, index) => transformNode(node, index))
     .filter((child): child is React.ReactNode => child !== null && child !== undefined);
 

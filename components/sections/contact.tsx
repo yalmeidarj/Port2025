@@ -1,6 +1,8 @@
 import ContactForm from "@/components/contact-form"
 import { Mail, Linkedin, Github } from "lucide-react"
 import { getTranslations } from "next-intl/server"
+import Link from "next/link"
+import { FaGithub } from "react-icons/fa"
 
 export async function ContactSection() {
     const t = await getTranslations("contact")
@@ -13,11 +15,11 @@ export async function ContactSection() {
                     <div className="space-y-3">
                         <div className="flex items-center gap-3">
                             <Mail className="h-5 w-5 text-primary" />
-                            <a href="mailto:yalmeida@gmail.com" className="hover:text-primary transition-colors">
+                            <Link href="mailto:yalmeida@gmail.com" className="hover:text-primary transition-colors">
                                 yalmeida@gmail.com
-                            </a>
+                            </Link>
                         </div>
-                        <div className="flex items-center gap-3">
+                        {/* <div className="flex items-center gap-3">
                             <Linkedin className="h-5 w-5 text-primary" />
                             <a
                                 href="https://www.linkedin.com/in/yuri-almeida-5b3a5b1b2/"
@@ -27,17 +29,17 @@ export async function ContactSection() {
                             >
                                 linkedin.com/in/yuri-almeida
                             </a>
-                        </div>
+                        </div> */}
                         <div className="flex items-center gap-3">
-                            <Github className="h-5 w-5 text-primary" />
-                            <a
+                            <FaGithub className="h-5 w-5 text-primary" />
+                            <Link
                                 href="https://github.com/yalmeidarj"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:text-primary transition-colors"
                             >
-                                github.com/yalmeida-hotmart
-                            </a>
+                                github.com/yalmeidarj
+                            </Link>
                         </div>
                     </div>
                 </div>

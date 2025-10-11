@@ -4,35 +4,42 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
 import { getTranslations } from "next-intl/server"
+import { TextEffect } from "../ui/text-effect"
+import { TextScramble } from "../ui/text-scramble"
+import { TextLoop } from "../ui/text-loop"
 
 export default async function Header() {
     const t = await getTranslations("nav")
 
     return (
-        <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className=" top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-16 items-center justify-between">
                 <Link href="/" className="flex items-center space-x-2">
                     <span className="font-bold text-xl">Yuri Almeida</span>
                 </Link>
 
                 {/* Desktop menu */}
-                <nav className="hidden md:flex gap-6">
-                    <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">{t("home")}</Link>
-                    <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">{t("about")}</Link>
-                    <Link href="#projects" className="text-sm font-medium hover:text-primary transition-colors">{t("projects")}</Link>
-                    <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors">Blog</Link>
-                    <Link href="#contact" className="text-sm font-medium hover:text-primary transition-colors">{t("contact")}</Link>
-                </nav>
+ 
 
                 {/* Controls */}
-                <div className="flex items-center gap-2">
-                    <ThemeToggle />
-                    <LanguageToggle isScrolled={false} />
-                    <div className="w-px h-6 bg-border mx-2" />
+                <div className="flex items-center w-full max-w-xs justify-end space-x-1 sm:space-x-2">
+                     {/* Full-Stack Software Engineer */}
+                     {/* <TextScramble className='font-mono text-sm uppercase'>
+                     Full-Stack Developer
+                        </TextScramble> */}
+                        <TextLoop className='font-mono text-sm uppercas text-end w-full'>
+                            <span className="uppercase">Web Developement</span>
+                            <span className="uppercase">Mobile Apps</span>
+                            <span className="uppercase">UI/UX Design</span>
+                            <span className="uppercase">Software Engineer</span>
+                            <span className="uppercase">Full-Stack Developer</span>
+                            <span className="uppercase">Problem Solver</span>
+                            <span className="uppercase">Artificial Intelligence</span>
+                            <span className="uppercase">Open Source</span>
+                            <span className="uppercase">Automation </span>
+                        </TextLoop>
+                    {/* <div className="w-px h-6 bg-border mx-2" /> */}
 
-                    <Social icon={Github} href="https://github.com/yalmeida-hotmart" />
-                    <Social icon={Linkedin} href="https://www.linkedin.com/in/yuri-almeida-5b3a5b1b2/" />
-                    <Social icon={Mail} href="mailto:yuri.almeida@hotmart.com" />
                 </div>
             </div>
         </header>

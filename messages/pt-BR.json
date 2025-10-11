@@ -5,45 +5,82 @@
     "projects": "Projetos",
     "contact": "Contato"
   },
+
   "hero": {
-    "jobTitle": "Desenvolvedor Full-Stack & Criador de IA",
-    "greeting": "Bem-vindo ao meu espaço digital.",
-    "getInTouch": "Entre em contato"
+    "jobTitle": "Engenheiro de Software Full-Stack",
+    "greeting": "Eu projeto e construo sistemas, de ferramentas de automação a fluxos de IA, com foco em eficiência. Me importo em resolver problemas operacionais reais e criar ferramentas que reduzem atrito para usuários e equipes. Meu trabalho é impulsionado pela capacidade de transformar processos complexos em etapas confiáveis e replicáveis.",
+    "getInTouch": "Entrar em contato"
   },
+
   "sections": {
     "featuredProjects": "Projetos em Destaque",
     "techStack": "Tecnologias",
-    "allProjects": "Todos os Projetos",
     "getInTouch": "Entre em Contato",
     "viewAll": "Ver todos"
   },
-  "tech": {
-    "frontend": "Frontend",
-    "backend": "Backend"
-  },
+
   "projects": {
     "allProjects": "Todos os Projetos",
-    "title": "Projetos",
     "all": "Todos",
     "web": "Web",
     "mobile": "Mobile",
     "other": "Outros",
-    "viewDetails": "Ver Detalhes",
+    "viewDetails": "Ver detalhes",
     "details": "Detalhes"
   },
+
+  "projectsCard":{
+    "door-2-door": {
+      "id": "1",
+      "title": "Door-2-Door",
+      "description": "Door-2-Door é um console de operações de campo criado para equipes de implantação de fibra. Ele ajuda as equipes a coordenar visitas porta a porta, registrar cada tentativa de contato e sincronizar atualizações com sistemas internos. O aplicativo combina uma visualização baseada em mapas, registros detalhados por residência e acompanhamento em tempo real, permitindo que agentes, despachantes e administradores mantenham o cronograma do projeto.",
+      "image": "https://port2025.b-cdn.net/Portfolio/door2door/integrated-map.png",
+      "technologies": ["Next.js", "Convex", "oAuth", "React", "Tailwind CSS"],
+      "github": "https://github.com/yalmeidarj/Door-2-Door",
+      "link": "https://project-one.com",
+      "category": "web"
+    },
+    "tdx":{
+      "id": "2",
+      "title": "TDX Frontend Landing Page",
+      "description": "TDX é uma equipe de vendas porta a porta focada em captar novos clientes para internet de fibra. A Landing Page do TDX foi construída com Next.js e Tailwind CSS para apresentar os serviços e valores da empresa. O site possui design moderno, layout responsivo e elementos interativos que engajam visitantes e incentivam o interesse pela TDX.",
+      "image": "https://port2025.b-cdn.net/Portfolio/Screenshot%202025-10-06%20203723.png",
+      "technologies": ["Next.js", "Tailwind CSS", "React"],
+      "github": "https://github.com/yalmeidarj/tdx-marketing-site",
+      "link": "https://tdx-solutions.vercel.app",
+      "category": "web"
+    },
+    "auto-notifier":{
+      "id": "3",
+      "title": "Auto-Notifier",
+      "description": "Auto-Notifier é uma utilidade leve em Python projetada para enviar notificações instantâneas quando scripts de longa duração finalizam ou falham. Ele elimina a necessidade de ficar monitorando o terminal, integrando-se facilmente via decoradores ou context managers. Desenvolvedores e engenheiros de dados podem focar no trabalho, enquanto o Auto-Notifier envia alertas de conclusão, falha ou checkpoints personalizados — uma solução simples para um problema comum de produtividade.",
+      "image": "https://port2025.b-cdn.net/Portfolio/auto-notifier/notify_when_done_decorator.png",
+      "technologies": ["Python", "Decorators", "CLI Tools", "Produtividade"],
+      "github": "https://github.com/yalmeidarj/auto-notifier",
+      "link": "https://pypi.org/project/auto-notifier/",
+      "category": "other"
+    }
+  },
+
+  "tech": {
+    "frontend": "Front-end",
+    "backend": "Back-end"
+  },
+
   "contact": {
-    "title": "Fale Comigo",
-    "description": "Sinta-se à vontade para entrar em contato para colaborações ou conversas.",
+    "title": "Entre em Contato",
+    "description": "Mande uma mensagem e eu retorno em até 24 horas.",
     "name": "Nome",
-    "namePlaceholder": "Seu nome completo",
+    "namePlaceholder": "Seu nome",
     "email": "Email",
     "emailPlaceholder": "voce@exemplo.com",
     "subject": "Assunto",
-    "subjectPlaceholder": "Sobre o que é?",
+    "subjectPlaceholder": "Como posso ajudar?",
     "message": "Mensagem",
-    "messagePlaceholder": "Escreva sua mensagem aqui...",
-    "send": "Enviar"
+    "messagePlaceholder": "Escreva sua mensagem aqui…",
+    "send": "Enviar mensagem"
   },
+
   "footer": {
     "rights": "Todos os direitos reservados"
   }

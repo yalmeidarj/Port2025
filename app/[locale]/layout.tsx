@@ -7,6 +7,16 @@ import { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { Inter } from "next/font/google"
 
+import { Roboto } from "next/font/google";
+import Navigation from '@/components/layout/Navigation';
+
+const font = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], // customize as needed
+  display: "swap",
+  variable: "--font-plus-jakarta", // optional for Tailwind or CSS vars
+});
+
 
 const inter = Inter({ subsets: ["latin"] })
 // app/layout.tsx or app/page.tsx
@@ -68,15 +78,18 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} suppressHydrationWarning>
-            <body className={inter.className}>
+            <body className={font.className}>
                 <ThemeProvider 
                     attribute="class" 
-                    defaultTheme="system" 
+                    defaultTheme="dark" 
                     enableSystem 
                     disableTransitionOnChange
                 >
                 <Toaster position="top-center" richColors />
-                    <NextIntlClientProvider>{children}</NextIntlClientProvider>
+                    <NextIntlClientProvider>
+                        {children}
+                        <Navigation />
+                    </NextIntlClientProvider>
                 </ThemeProvider>
             </body>
         </html>

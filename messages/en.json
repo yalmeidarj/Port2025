@@ -8,7 +8,7 @@
 
   "hero": {
     "jobTitle": "Full-Stack Software Engineer",
-    "greeting": "Nice to meet you!",
+    "greeting": "I design and build systems, from automation tools to AI workflows, with a focus on efficiency. I care about solving real operational problems and creating tools that reduce friction for both users and teams. My work is driven by the ability to turn complex processes into reliable, replicable steps. ",
     "getInTouch": "Get in touch"
   },
 
@@ -28,6 +28,38 @@
     "viewDetails": "View details",
     "details": "Details"
   },
+  "projectsCard": {
+    "door-2-door": {
+    "id": "1",
+    "title": "Door-2-Door",
+    "description": "Door-2-Door is a field operations console built for fiber deployment teams. It helps crews coordinate door-to-door canvassing, record every household contact attempt, and synchronize updates with downstream systems. The app combines a map-driven view of neighborhoods, detailed per-house records, and real-time shift tracking so that field teams and administrators can keep deployment programs on schedule. In practice, Door-2-Door serves everyone from front-line field agents (logging visits) to dispatchers (monitoring progress) and administrators (ensuring data quality across organizations).",
+    "image": "https://port2025.b-cdn.net/Portfolio/door2door/integrated-map.png",
+    "technologies": ["Next.js", "Convex", "oAuth", "React", "Tailwind CSS"],
+    "github": "https://github.com/yalmeidarj/Door-2-Door",
+    "link": "https://project-one.com",
+    "category": "web"
+  },
+  "tdx":{
+    "id": "2",
+    "title": "TDX Frontend Landing Page",
+    "description": "TDX is a door-to-door sales team focused on canvasing neighborhoods to sign up new customers for fiber internet. The TDX Frontend Landing Page is a marketing website built with Next.js and Tailwind CSS that showcases the company's services and values. The website features a modern design, responsive layout, and interactive elements that engage visitors and encourage them to learn more about TDX.",
+    "image": "https://port2025.b-cdn.net/Portfolio/Screenshot%202025-10-06%20203723.png",
+    "technologies": ["Next.js", "Tailwind CSS", "React"],
+    "github": "https://github.com/yalmeidarj/tdx-marketing-site",
+    "link": "https://tdx-solutions.vercel.app",
+    "category": "web"
+  },
+  "auto-notifier":{
+    "id": "3",
+    "title": "Auto-Notifier",
+    "description": "Auto-Notifier is a lightweight Python utility designed to send instant notifications when long-running scripts complete or fail. It eliminates the need to constantly monitor terminal output by integrating seamlessly via decorators or context managers. Developers and data engineers can focus on deep work while Auto-Notifier delivers desktop notifications upon task completion, crashes, or custom checkpoints — a simple solution to a common productivity problem.",
+    "image": "https://port2025.b-cdn.net/Portfolio/auto-notifier/notify_when_done_decorator.png",
+    "technologies": ["Python", "Decorators", "CLI Tools", "Productivity"],
+    "github": "https://github.com/yalmeidarj/auto-notifier",
+    "link": "https://pypi.org/project/auto-notifier/",
+    "category": "other"
+  }
+},
 
   "tech": {
     "frontend": "Front-end",

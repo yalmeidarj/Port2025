@@ -53,17 +53,27 @@ export function LanguageToggle({ isScrolled }: Props) {
 
         // 2. Compute the same path but under the new locale
         //    Strip the current locale prefix (if any) and prepend the new one.
-        const [, , ...rest] = pathname.split('/');           // drop '' and locale
-        const newPath = `/${lang.code}/${rest.join('/')}`.replace(/\/+$/, ''); // rm trailing /
+        const pathSegments = pathname.split('/').filter(Boolean);
+        const hasLocalePrefix = LANGS.some((l) => l.code === pathSegments[0]);
+        const pathWithoutLocale = hasLocalePrefix ? pathSegments.slice(1) : pathSegments;
 
-        router.push(newPath || `/${lang.code}`);
+        let targetSegments = pathWithoutLocale;
+        if (targetSegments[0] === 'blog' && targetSegments.length > 1) {
+            targetSegments = ['blog']; // collapse deep blog paths to the blog root
+        }
+
+        const newPath = targetSegments.length
+            ? `/${lang.code}/${targetSegments.join('/')}`
+            : `/${lang.code}`;
+
+        router.push(newPath);
         setOpen(false);
     }
 
     if (!mounted) {
         return (
-            <Button variant="ghost" size="icon" className="h-9 w-9">
-                <Languages className="h-4 w-4" />
+            <Button variant="ghost" size="icon" className="">
+                <Languages className="" />
                 <span className="sr-only">Switch language</span>
             </Button>
         );
@@ -72,7 +82,7 @@ export function LanguageToggle({ isScrolled }: Props) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9">
+                <Button variant="ghost" size="icon" className="text-ring cursor-pointer">
                     <Languages className="h-4 w-4" />
                     <span className="sr-only">Switch language</span>
                 </Button>
