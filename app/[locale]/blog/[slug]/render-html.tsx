@@ -5,7 +5,7 @@
 // @ -0,0 +1,157 @@
 import React from "react";
 import Image from "next/image";
-import { parse, HTMLElement, Node as HtmlNode, TextNode } from "node-html-parser";
+import { parse, HTMLElement, Node as HtmlNode, TextNode, NodeType } from "node-html-parser";
 
 function toCamelCase(value: string) {
   return value.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
@@ -36,6 +36,11 @@ const ATTRIBUTE_NAME_MAP: Record<string, string> = {
 
 const WRAPPER_TAGS = new Set(["html", "head", "body"]);
 const IGNORED_TAGS = new Set(["meta", "link", "script", "title", "base"]);
+const DOCUMENT_TYPE_NODE = 10;
+
+function isDocumentTypeNode(node: HtmlNode) {
+  return (node as unknown as { nodeType: number }).nodeType === DOCUMENT_TYPE_NODE;
+}
 
 function parseStyleAttribute(style: string): React.CSSProperties {
   return style
@@ -88,18 +93,18 @@ function normalizeAttributes(element: HTMLElement) {
 }
 
 function transformNode(node: HtmlNode, key: number): React.ReactNode {
-  if (node.nodeType === 10) {
+  if (isDocumentTypeNode(node)) {
     return null;
   }
 
-  if (node.nodeType === 3) {
+  if (node.nodeType === NodeType.TEXT_NODE) {
     const textNode = node as TextNode;
     // Ignore pure whitespace text nodes (e.g. single spaces that become {' '})
     if (textNode.rawText.trim().length === 0) return null;
     return textNode.rawText;
   }
 
-  if (node.nodeType !== 1) {
+  if (node.nodeType !== NodeType.ELEMENT_NODE) {
     return null;
   }
 
@@ -211,7 +216,7 @@ export function renderHtmlToReact(html: string): React.ReactNode {
   });
 
   const nodes = root.childNodes
-    .filter((node) => node.nodeType !== 10) // drop DOCTYPE declarations
+    .filter((node) => !isDocumentTypeNode(node)) // drop DOCTYPE declarations
     .map((node, index) => transformNode(node, index))
     .filter((child): child is React.ReactNode => child !== null && child !== undefined);
 
