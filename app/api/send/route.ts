@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -15,35 +15,21 @@ export async function POST(req: NextRequest) {
      * 1. Parse the classic <form> submission
      * ------------------------------------------------------------- */
     const data = await req.formData(); // <-- works for url-encoded or multipart
-    const rawName = (data.get("name") ?? data.get("first") ?? "") as string;
-    const email = ((data.get("email") ?? "") as string).trim();
-    const subject = ((data.get("subject") ?? "") as string).trim();
-    const message = ((data.get("message") ?? "") as string).trim();
-    const name = rawName.trim() || "Anonymous";
-
-    if (!email || !message) {
-      return NextResponse.json(
-        { ok: false, reason: "Missing required fields." },
-        { status: 422 }
-      );
-    }
-
-    if (!to) {
-      throw new Error("Destination address not configured.");
-    }
+    const name = (data.get("name") ?? "") as string;    
+    const email = (data.get("email") ?? "") as string;
+    const message = (data.get("message") ?? "") as string;
 
     /* ---------------------------------------------------------------
      * 2. Fire the e-mail
      * ------------------------------------------------------------- */
     await resend.emails.send({
       from: process.env.RESEND_FROM!, // verified sender
-      to,
-      subject: subject || `Website contact - ${name}`,
+      to: to!,
+      subject: `yalmeida.world – ${name}`,
       replyTo: email,
       html: `
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ""}
         <p><strong>Message:</strong><br/>${message.replace(/\n/g, "<br/>")}</p>
       `,
     });

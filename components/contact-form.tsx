@@ -45,6 +45,7 @@ export default function ContactForm({ placeholders }: Props) {
                         </label>
                         <input
                             id="name"
+                            name="name"
                             className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
                         placeholder={placeholders.first}
                         />
@@ -55,7 +56,9 @@ export default function ContactForm({ placeholders }: Props) {
                         </label>
                         <input
                             id="email"
+                            name="email"
                             type="email"
+                            required
                             className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
                         placeholder={placeholders.email}
                         />
@@ -67,6 +70,7 @@ export default function ContactForm({ placeholders }: Props) {
                     </label>
                     <input
                         id="subject"
+                        name="subject"
                         className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
                     placeholder={placeholders.subject}
                     />
@@ -77,6 +81,8 @@ export default function ContactForm({ placeholders }: Props) {
                     </label>
                     <textarea
                         id="message"
+                        name="message"
+                        required
                         className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
                     placeholder={placeholders.message}
                     />
