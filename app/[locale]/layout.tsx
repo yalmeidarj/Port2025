@@ -1,4 +1,4 @@
-import { NextIntlClientProvider, hasLocale } from 'next-intl';
+﻿import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
@@ -21,7 +21,7 @@ const font = Roboto({
 const inter = Inter({ subsets: ["latin"] })
 // app/layout.tsx or app/page.tsx
 export const metadata: Metadata = {
-    title: "Yuri Almeida – Full-Stack Developer & AI Builder",
+    title: "Yuri Almeida â€“ Full-Stack Developer & AI Builder",
     description:
         "Yuri Almeida is a full-stack developer based in Toronto, building modern web apps, SaaS platforms, and AI tools with Next.js, Tailwind CSS, Convex, and more.",
     keywords: [
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
         "Web Development Portfolio"
     ],
     openGraph: {
-        title: "Yuri Almeida – Full-Stack Developer & AI Builder",
+        title: "Yuri Almeida â€“ Full-Stack Developer & AI Builder",
         description:
-            "Explore Yuri Almeida’s portfolio — a full-stack dev building performant, elegant web apps and AI tools using the modern web stack.",
+            "Explore Yuri Almeidaâ€™s portfolio â€” a full-stack dev building performant, elegant web apps and AI tools using the modern web stack.",
         url: "https://yalmeida.vercel.app",
         siteName: "Yuri Almeida",
         images: [
@@ -53,10 +53,13 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Yuri Almeida – Full-Stack Developer & AI Builder",
+        title: "Yuri Almeida â€“ Full-Stack Developer & AI Builder",
         description:
             "Toronto-based developer building modern, scalable web apps and AI-powered platforms.",
         images: ["https://yalmeida.vercel.app/logo.png"]
+    },
+    verification: {
+        google: "KbqkE97Ay8oDcA8nCm67gaFp_4iuPsGMkbXC7UA3JhQ",
     },
     metadataBase: new URL("https://yalmeida.vercel.app")
 };
@@ -95,3 +98,4 @@ export default async function LocaleLayout({
         </html>
     );
 }
+
