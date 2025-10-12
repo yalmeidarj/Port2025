@@ -116,8 +116,8 @@ export default async function BlogPostPage({
     <div className="min-h-screen bg-background transition-colors duration-300">
       <Header />
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
+      <main className="container  py-8">
+        <div className=" mx-auto">
           <article className="prose prose-lg max-w-none text-accent-foreground">
             <header className="mb-8">
               <h1 className="text-4xl font-bold mb-4">{post!.title}</h1>
@@ -134,7 +134,9 @@ export default async function BlogPostPage({
                 </time>
               </div>
             </header>
-            <div className="prose-content">{renderHtmlToReact(post!.content)}</div>
+            <div className="prose-content">
+              {renderHtmlToReact(post!.content, { lang: post!.locale ?? locale })}
+            </div>
           </article>
         </div>
       </main>

@@ -1,11 +1,100 @@
-// iff --git a//dev/null b/app/[locale]/blog/[slug]/render-html.tsx
-// ndex 0000000000000000000000000000000000000000..983a71b70201f0a2646bbddb63f9b9ca6f95cf83 100644
-// -- a//dev/null
-// ++ b/app/[locale]/blog/[slug]/render-html.tsx
-// @ -0,0 +1,157 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import { parse, HTMLElement, Node as HtmlNode, TextNode, NodeType } from "node-html-parser";
+
+const MISENCODED_TEXT_PATTERN = /[\u00c3\u00c2][\u0080-\u00FF]/;
+const WIDTH_OVERRIDE_STYLES = `
+:where(.rendered-html) {
+  width: 100%;
+}
+
+:where(.rendered-html) .container,
+:where(.rendered-html) .markdown-body {
+  max-width: 100%;
+  width: 100%;
+}
+
+:where(.rendered-html) .container {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+:where(.rendered-html) pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: var(--code-bg, #111827);
+  background: color-mix(in srgb, var(--bg, #0a0f1a) 92%, var(--fg, #e8eefc) 8%);
+  color: var(--code-fg, inherit);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+:where(.rendered-html) code {
+  color: var(--code-fg, inherit);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+:where(.rendered-html) pre code {
+  display: block;
+  white-space: pre;
+  background: transparent;
+  padding: 0;
+}
+`;
+interface RenderHtmlOptions {
+  lang?: string;
+  className?: string;
+}
+
+function decodePotentiallyMisencodedText(value: string): string {
+  if (!value || !MISENCODED_TEXT_PATTERN.test(value)) {
+    return value;
+  }
+
+  try {
+    const bytes = new Uint8Array(value.length);
+    for (let index = 0; index < value.length; index += 1) {
+      bytes[index] = value.charCodeAt(index);
+    }
+    return new TextDecoder("utf-8").decode(bytes);
+  } catch {
+    return value;
+  }
+}
+
+type NodeWithParent = HtmlNode & { parentNode?: HtmlNode | null };
+
+function isWithinPreformattedContext(node: HtmlNode): boolean {
+  let current: HtmlNode | null = (node as NodeWithParent).parentNode ?? null;
+
+  while (current) {
+    if (current.nodeType === NodeType.ELEMENT_NODE) {
+      const element = current as Partial<HTMLElement>;
+      const tagName = typeof element.tagName === "string" ? element.tagName.toLowerCase() : undefined;
+
+      if (tagName === "pre" || tagName === "code" || tagName === "samp" || tagName === "kbd") {
+        return true;
+      }
+    }
+
+    current = (current as NodeWithParent).parentNode ?? null;
+  }
+
+  return false;
+}
+
+function getParentElementTagName(node: HtmlNode): string | null {
+  const parentNode = (node as NodeWithParent).parentNode ?? null;
+
+  if (parentNode && parentNode.nodeType === NodeType.ELEMENT_NODE) {
+    const element = parentNode as HTMLElement;
+    return typeof element.tagName === "string" ? element.tagName.toLowerCase() : null;
+  }
+
+  return null;
+}
 
 function toCamelCase(value: string) {
   return value.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
@@ -35,6 +124,7 @@ const ATTRIBUTE_NAME_MAP: Record<string, string> = {
 };
 
 const WRAPPER_TAGS = new Set(["html", "head", "body"]);
+const TABLE_STRUCTURE_TAGS = new Set(["table", "thead", "tbody", "tfoot", "tr", "colgroup"]);
 const IGNORED_TAGS = new Set(["meta", "link", "script", "title", "base"]);
 const DOCUMENT_TYPE_NODE = 10;
 
@@ -80,7 +170,11 @@ function normalizeAttributes(element: HTMLElement) {
   const attributes = element.attributes;
   return Object.entries(attributes).reduce<Record<string, unknown>>((acc, [rawName, rawValue]) => {
     const name = normalizeAttributeName(rawName);
-    const value = rawValue === "" ? true : rawValue;
+    const normalizedValue = rawValue === "" ? true : rawValue;
+    const value =
+      typeof normalizedValue === "string"
+        ? decodePotentiallyMisencodedText(normalizedValue)
+        : normalizedValue;
 
     if (name === "style" && typeof value === "string") {
       acc[name] = parseStyleAttribute(value);
@@ -99,9 +193,42 @@ function transformNode(node: HtmlNode, key: number): React.ReactNode {
 
   if (node.nodeType === NodeType.TEXT_NODE) {
     const textNode = node as TextNode;
-    // Ignore pure whitespace text nodes (e.g. single spaces that become {' '})
-    if (textNode.rawText.trim().length === 0) return null;
-    return textNode.rawText;
+    const rawValue = textNode.rawText ?? "";
+    const decodedText = decodePotentiallyMisencodedText(rawValue);
+
+    if (!decodedText) {
+      return null;
+    }
+
+    if (isWithinPreformattedContext(textNode)) {
+      return decodedText.replace(/\r\n?/g, "\n");
+    }
+
+    const trimmed = decodedText.trim();
+
+    if (trimmed.length === 0) {
+      const parentTagName = getParentElementTagName(textNode);
+
+      if (parentTagName && TABLE_STRUCTURE_TAGS.has(parentTagName)) {
+        return null;
+      }
+
+      if (decodedText.includes("\u00a0")) {
+        return "\u00a0";
+      }
+
+      if (decodedText.includes(" ")) {
+        return " ";
+      }
+
+      if (decodedText.includes("\n")) {
+        return "\n";
+      }
+
+      return null;
+    }
+
+    return decodedText;
   }
 
   if (node.nodeType !== NodeType.ELEMENT_NODE) {
@@ -201,7 +328,7 @@ function transformNode(node: HtmlNode, key: number): React.ReactNode {
   return React.createElement(tagName, elementProps, ...(children as React.ReactNode[]));
 }
 
-export function renderHtmlToReact(html: string): React.ReactNode {
+export function renderHtmlToReact(html: string, options: RenderHtmlOptions = {}): React.ReactNode {
   if (!html) return null;
 
   const root = parse(html, {
@@ -211,7 +338,6 @@ export function renderHtmlToReact(html: string): React.ReactNode {
       script: true,
       noscript: true,
       style: true,
-      pre: true,
     },
   });
 
@@ -222,7 +348,17 @@ export function renderHtmlToReact(html: string): React.ReactNode {
 
   if (nodes.length === 0) return null;
 
-  if (nodes.length === 1) return nodes[0];
+  const wrapperClassName = ["rendered-html", "w-full", options.className]
+    .filter(Boolean)
+    .join(" ") || undefined;
 
-  return nodes;
+  return (
+    <div className={wrapperClassName} lang={options.lang}>
+      <style>{WIDTH_OVERRIDE_STYLES}</style>
+      {nodes}
+    </div>
+  );
 }
+
+
+

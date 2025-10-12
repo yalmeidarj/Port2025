@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Automatizando Notificaciones de Escritorio en Python con auto-notifier</title>
+  <link rel="canonical" href="https://yalmeida.world/blog/es/posts/automatizando-notificaciones-de-escritorio-en-python-con-auto-notifier.html" />
+  <link rel="alternate" href="https://yalmeida.world/blog/en/posts/automating-desktop-notifications-in-python-with-auto-notifier.html" hreflang="en" />
+  <link rel="alternate" href="https://yalmeida.world/blog/es/posts/automatizando-notificaciones-de-escritorio-en-python-con-auto-notifier.html" hreflang="es" />
+  <link rel="alternate" href="https://yalmeida.world/blog/fr/posts/automatisation-des-notifications-de-bureau-en-python-avec-auto-notifier.html" hreflang="fr" />
+  <link rel="alternate" href="https://yalmeida.world/blog/pt-BR/posts/automatizando-notificacoes-desktop-em-python-com-auto-notifier.html" hreflang="pt-BR" />
+  <link rel="alternate" href="https://yalmeida.world/blog/en/posts/automating-desktop-notifications-in-python-with-auto-notifier.html" hreflang="x-default" />
+  <meta property="og:title" content="Automatizando Notificaciones de Escritorio en Python con auto-notifier">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2025-10-11">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Automatizando Notificaciones de Escritorio en Python con auto-notifier">
+  <style>
+  /* === Deep Blue (Midnight) === */
+:root {
+    --bg: #0a0f1a;
+    --fg: #e8eefc;
+    --muted: #9aa7bd;
+    --accent: #2b6cde;
+    /* deep blue */
+    --code-bg: #0b1320;
+    --code-fg: #eef3ff;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #ffffff;
+        --fg: #10131a;
+        --muted: #546178;
+        --accent: #2557c5;
+        --code-bg: #f2f5fb;
+        --code-fg: #0f1220;
+    }
+}
+
+/* Base */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 15px/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+a {
+    color: var(--accent);
+    text-underline-offset: .18em;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Layout */
+.container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+}
+
+.markdown-body {
+    word-break: break-word;
+}
+
+/* Top bar / “Terminal” header */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid color-mix(in oklab, var(--fg) 14%, transparent);
+}
+
+.topbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: .9rem 1.25rem .6rem;
+}
+
+.brand {
+    display: inline-block;
+    padding: .18rem .5rem;
+    border: 2px solid var(--accent);
+    border-radius: .35rem;
+    background: color-mix(in oklab, var(--accent) 12%, transparent);
+    color: var(--fg);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-weight: 600;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--fg);
+    opacity: .9;
+}
+
+.menu a:hover {
+    color: var(--accent);
+}
+
+.lang {
+    margin-left: 1rem;
+    padding: .15rem .5rem;
+    border: 1.5px solid var(--accent);
+    border-radius: .35rem;
+    color: var(--fg);
+    opacity: .9;
+}
+
+.topbar .bar {
+    height: 16px;
+    background:
+        repeating-linear-gradient(to right,
+            var(--accent) 0 3px,
+            transparent 3px 9px);
+    opacity: .95;
+}
+
+/* Headings with dotted “ruler” accent */
+h1,
+h2 {
+    margin-top: 2rem;
+    margin-bottom: .6rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.35rem;
+}
+
+h1.title-accent::after,
+.markdown-body h1::after {
+    content: "";
+    display: block;
+    height: 6px;
+    margin-top: .6rem;
+    background:
+        repeating-linear-gradient(to right,
+            var(--accent) 0 4px,
+            transparent 4px 10px);
+}
+
+/* Paragraphs & misc */
+hr {
+    border: none;
+    height: 1px;
+    background: color-mix(in oklab, var(--fg) 18%, transparent);
+    margin: 2rem 0;
+}
+
+blockquote {
+    margin: 1rem 0;
+    padding: .75rem 1rem;
+    border-left: 4px solid var(--accent);
+    background: color-mix(in oklab, var(--accent) 8%, transparent);
+    border-radius: .25rem;
+}
+
+/* Code */
+code {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: .12rem .35rem;
+    border-radius: .25rem;
+}
+
+pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 1rem;
+    border-radius: .5rem;
+    overflow: auto;
+}
+
+pre code {
+    background: transparent;
+    padding: 0;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow: auto;
+}
+
+th,
+td {
+    border: 1px solid color-mix(in oklab, var(--fg) 20%, transparent);
+    padding: .5rem .6rem;
+}
+
+th {
+    background: color-mix(in oklab, var(--fg) 6%, transparent);
+    text-align: left;
+}
+
+/* TOC */
+nav.toc {
+    border: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+    border-radius: .5rem;
+    padding: 1rem;
+    margin: 1.25rem 0 1.75rem;
+    font-size: .95rem;
+    background: color-mix(in oklab, var(--fg) 4%, transparent);
+}
+
+nav.toc summary {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+nav.toc ul {
+    margin: .5rem 0 0 0;
+    padding-left: 1rem;
+    list-style: none;
+}
+
+nav.toc li {
+    margin: .25rem 0;
+}
+
+nav.toc a {
+    text-decoration: none;
+}
+
+/* Framed media like the screenshot */
+.markdown-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1rem auto;
+    background: var(--bg);
+    /* inner border + outer frame using box-shadows */
+    border: 4px solid var(--accent);
+    box-shadow:
+        0 0 0 6px color-mix(in oklab, var(--accent) 28%, transparent),
+        0 0 0 10px var(--bg);
+}
+
+/* Small “tag” label style you can apply if you wrap images in <figure> */
+.figure-tag {
+    display: inline-block;
+    margin: .5rem 0 0 .5rem;
+    padding: .2rem .45rem;
+    border-radius: .25rem;
+    background: color-mix(in oklab, var(--accent) 22%, transparent);
+    border: 1px solid var(--accent);
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--fg);
+}
+
+/* Footer */
+.site-footer {
+    opacity: .8;
+    border-top: 1px solid color-mix(in oklab, var(--fg) 14%, transparent);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    font-size: .9rem;
+}
+  :root { color-scheme: light dark; }
+  body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.7; }
+  .wrap { margin: 0 auto; padding: 2rem 1rem; }
+  nav.toc { border: 1px solid #e2e8f0; border-radius: .5rem; padding: 1rem; margin-bottom: 1.5rem; font-size: .95rem; }
+  nav.toc summary { cursor: pointer; font-weight: 600; }
+  nav.toc ul { margin: .5rem 0 0 1rem; padding: 0; list-style: none; }
+  nav.toc li { margin: .25rem 0; }
+  nav.toc a { text-decoration: none; }
+  pre { overflow-x: auto; padding: 1rem; border-radius: .5rem; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .prose a { text-decoration: none; }
+  .prose a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid #bbb; margin: 2rem 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap prose">
+    
+    <h1>Automatizando Notificaciones de Escritorio en Python con <code>auto-notifier</code></h1>
+<p>Cuando trabajas con dos monitores, es fácil iniciar un script largo en una terminal y luego cambiar tu atención a otra tarea. A mí me pasa seguido: lanzo un proceso en Python, me pongo a hacer otra cosa, y cuando regreso… ya había terminado (o fallado) hace rato.</p>
+<p><code>auto-notifier</code> fue creado para ese escenario. Envuelve tu función o bloque de código, detecta si todo terminó bien o con error, y envía una notificación nativa en el escritorio. Usa dos conceptos muy conocidos en Python — <strong>decoradores</strong> y <strong>context managers</strong> — sin requerir configuraciones adicionales.</p>
+<hr />
+<blockquote>
+<p><strong>[ Espacio reservado para imagen de la notificación ]</strong>
+<em>Ejemplo: ventana emergente después de finalizar el script</em></p>
+</blockquote>
+<hr />
+<h2>🚀 Instalación</h2>
+<div class="codehilite"><pre><code>pip<span class="w"> </span>install<span class="w"> </span>auto-notifier
+</code></pre></div>
+
+<p><code>auto-notifier</code> utiliza <code>notify-py</code> internamente para enviar notificaciones nativas (Windows, macOS, Linux).</p>
+<hr />
+<h2>🧭 Cómo Funciona</h2>
+<table>
+<thead>
+<tr>
+<th>Interfaz</th>
+<th>Ideal Para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@notify_when_done</code></td>
+<td>Monitorear una <strong>función</strong></td>
+</tr>
+<tr>
+<td><code>notify_on_complete()</code></td>
+<td>Monitorear un <strong>bloque de código</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Ambos detectan:</p>
+<ul>
+<li>✅ Finalización exitosa</li>
+<li>❌ Excepciones (con alerta de error)</li>
+<li>⏱️ Tiempo de ejecución registrado</li>
+</ul>
+<p>Las excepciones <strong>no se ocultan</strong> — verás el traceback normalmente en la terminal.</p>
+<hr />
+<h2>🧩 Uso con Decorator</h2>
+<div class="codehilite"><pre><code><span class="kn">from</span><span class="w"> </span><span class="nn">auto_notifier</span><span class="w"> </span><span class="kn">import</span> <span class="n">notify_when_done</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="nd">@notify_when_done</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Backup completado&quot;</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;La copia de seguridad terminó exitosamente.&quot;</span><span class="p">,</span>
+    <span class="n">error_title</span><span class="o">=</span><span class="s2">&quot;Error en el backup&quot;</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ejecutar_backup</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># simula trabajo</span>
+    <span class="c1"># raise Exception(&quot;Error de disco&quot;)  # probar fallo</span>
+    <span class="k">return</span> <span class="s2">&quot;ok&quot;</span>
+
+<span class="n">ejecutar_backup</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Qué ocurre:</strong></p>
+<ul>
+<li>Éxito → Notificación “Backup completado”</li>
+<li>Error → Notificación “Error en el backup”, excepción relanzada</li>
+</ul>
+<hr />
+<h2>📎 Uso con Context Manager</h2>
+<div class="codehilite"><pre><code><span class="kn">from</span><span class="w"> </span><span class="nn">auto_notifier</span><span class="w"> </span><span class="kn">import</span> <span class="n">notify_on_complete</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="k">with</span> <span class="n">notify_on_complete</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Importación finalizada&quot;</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Importación completada&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Ideal para scripts o notebooks con bloques largos.</p>
+<hr />
+<h2>🎛️ Personalizando la Notificación</h2>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>Título en caso de éxito</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>Mensaje en caso de éxito</td>
+</tr>
+<tr>
+<td><code>error_title</code></td>
+<td>Título en caso de error</td>
+</tr>
+<tr>
+<td><code>error_message</code></td>
+<td>Mensaje en caso de error</td>
+</tr>
+<tr>
+<td><code>icon_path</code></td>
+<td>Ícono personalizado</td>
+</tr>
+<tr>
+<td><code>app_name</code></td>
+<td>Nombre en el centro de notificaciones</td>
+</tr>
+</tbody>
+</table>
+<p>Ejemplo con ícono:</p>
+<div class="codehilite"><pre><code><span class="nd">@notify_when_done</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Reporte generado&quot;</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Métricas mensuales listas.&quot;</span><span class="p">,</span>
+    <span class="n">icon_path</span><span class="o">=</span><span class="s2">&quot;icons/chart.png&quot;</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generar_reporte</span><span class="p">():</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<hr />
+<h2>🛠 Decorators y Context Managers</h2>
+<ul>
+<li><strong>Decorator:</strong> Envuelve la función, mide el tiempo, captura errores y envía la notificación</li>
+<li><strong>Context Manager:</strong> Usa <code>__enter__</code> / <code>__exit__</code> para asegurar la notificación incluso ante excepciones</li>
+</ul>
+<p>No hay hilos, servicios ni configuración extra — solo flujo Python.</p>
+<hr />
+<h2>🔁 Ejemplo Completo (Estilo Pipeline)</h2>
+<div class="codehilite"><pre><code><span class="kn">from</span><span class="w"> </span><span class="nn">auto_notifier</span><span class="w"> </span><span class="kn">import</span> <span class="n">notify_when_done</span><span class="p">,</span> <span class="n">notify_on_complete</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="nd">@notify_when_done</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Datos limpios&quot;</span><span class="p">,</span> <span class="n">error_title</span><span class="o">=</span><span class="s2">&quot;Error en limpieza&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">limpiar_datos</span><span class="p">(</span><span class="n">ruta</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">notify_on_complete</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Pipeline ETL finalizado&quot;</span><span class="p">):</span>
+    <span class="n">limpio</span> <span class="o">=</span> <span class="n">limpiar_datos</span><span class="p">(</span><span class="s2">&quot;raw.csv&quot;</span><span class="p">)</span>
+    <span class="n">limpio</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;cleaned.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h2>🧭 Cuándo Usarlo</h2>
+<ul>
+<li>Scripts largos en terminal</li>
+<li>Procesamiento de datos / scraping</li>
+<li>Entrenamiento de modelos</li>
+<li>Backups o exportaciones</li>
+</ul>
+<p>Pensado para uso <strong>local</strong>, con notificaciones del sistema.</p>
+<hr />
+<h2>📌 Resumen</h2>
+<p><code>auto-notifier</code> agrega notificaciones a funciones o bloques de código usando decorators o context managers.
+Te permite alejarte del terminal y aun así saber exactamente cuándo terminó — o falló — un proceso.</p>
+<hr />
+<p><strong>PyPI:</strong> https://pypi.org/project/auto-notifier/
+<strong>GitHub:</strong> https://github.com/yalmeidarj/auto-notifier</p>
+<hr />
+<p>Si ejecutas scripts y cambias de tarea, esta herramienta elimina el “¿ya habrá terminado?”</p>
+  </div>
+</body>
+</html>

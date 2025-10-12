@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Markdown Showcase</title>
-  <link rel="canonical" href="https://yalmeida.world/blog/en/posts/markdown_showcase.html" />
+  <link rel="canonical" href="https://yalmeida.world/blog/es/posts/markdown_showcase_es.html" />
   <link rel="alternate" href="https://yalmeida.world/blog/en/posts/markdown_showcase.html" hreflang="en" />
   <link rel="alternate" href="https://yalmeida.world/blog/es/posts/markdown_showcase_es.html" hreflang="es" />
   <link rel="alternate" href="https://yalmeida.world/blog/fr/posts/markdown_showcase_fr.html" hreflang="fr" />
   <link rel="alternate" href="https://yalmeida.world/blog/pt-BR/posts/markdown_showcase_pt-br.html" hreflang="pt-BR" />
   <link rel="alternate" href="https://yalmeida.world/blog/en/posts/markdown_showcase.html" hreflang="x-default" />
-    <meta name="description" content="A comprehensive example of common (and handy) Markdown features">
+  <meta name="description" content="Un ejemplo completo de funciones comunes (y útiles) de Markdown">
   <meta name="author" content="Yuri Almeida">
   <meta property="og:title" content="Markdown Showcase">
   <meta property="og:type" content="article">
-  <meta property="og:description" content="A comprehensive example of common (and handy) Markdown features">
+  <meta property="og:description" content="Un ejemplo completo de funciones comunes (y útiles) de Markdown">
   <meta property="og:url" content="https://github.com/yurialmeida">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Markdown Showcase">
-  <meta name="twitter:description" content="A comprehensive example of common (and handy) Markdown features">
+  <meta name="twitter:description" content="Un ejemplo completo de funciones comunes (y útiles) de Markdown">
   <meta property="article:published_time" content="2025-10-05">
   <meta property="article:tag" content="markdown">
   <meta property="article:tag" content="html">
-  <meta property="article:tag" content="converter">
+  <meta property="article:tag" content="convertidor">
   <meta property="article:author" content="Yuri Almeida">
+  <link rel="canonical" href="markdown_showcase.html">
   <style>
   /* --- Embedded CSS (user CSS will be appended below the base reset) --- */
   /* === Deep Blue (Midnight) === */
@@ -298,135 +299,135 @@ nav.toc a {
         <!--
       <h1 class="title-accent" style="margin-top:0;">Markdown Showcase</h1>
       
-  This file demonstrates most of GitHub-Flavored Markdown (GFM) and many common extensions.
-  Save as `markdown-showcase.md` and preview it in VS Code, GitHub, or your favorite Markdown viewer.
+  Este archivo demuestra la mayoría del Markdown al estilo GitHub (GFM) y muchas extensiones comunes.
+  Guárdalo como `markdown-showcase.md` y prévisualízalo en VS Code, GitHub o en tu visor de Markdown favorito.
 -->
 
 <!-- <h1>🧭 Markdown Showcase</h1> -->
 <!-- <blockquote> -->
-<p>A living cheat-sheet of Markdown patterns you can copy/paste.
-<em>Tip</em>: Use the table of contents below to jump to sections.</p>
+<p>Una hoja de referencia viva de patrones de Markdown para copiar/pegar.
+<em>Consejo</em>: Usa la tabla de contenidos de abajo para saltar a secciones.</p>
 </blockquote>
-<p><strong>Table of Contents</strong>
-- <a href="#headings">Headings</a>
-- <a href="#text-styles">Text Styles</a>
-- <a href="#paragraphs--line-breaks">Paragraphs &amp; Line Breaks</a>
-- <a href="#lists">Lists</a>
-- <a href="#task-lists">Task Lists</a>
-- <a href="#links">Links</a>
-- <a href="#images">Images</a>
-- <a href="#blockquotes">Blockquotes</a>
-- <a href="#code">Code</a>
-- <a href="#tables">Tables</a>
-- <a href="#footnotes">Footnotes</a>
-- <a href="#definitions">Definitions</a>
-- <a href="#details--summary">Details / Summary</a>
-- <a href="#horizontal-rules">Horizontal Rules</a>
-- <a href="#escaping--special-characters">Escaping &amp; Special Characters</a>
+<p><strong>Tabla de Contenidos</strong>
+- <a href="#headings">Encabezados</a>
+- <a href="#text-styles">Estilos de Texto</a>
+- <a href="#paragraphs--line-breaks">Párrafos &amp; Saltos de Línea</a>
+- <a href="#lists">Listas</a>
+- <a href="#task-lists">Listas de Tareas</a>
+- <a href="#links">Enlaces</a>
+- <a href="#images">Imágenes</a>
+- <a href="#blockquotes">Citas</a>
+- <a href="#code">Código</a>
+- <a href="#tables">Tablas</a>
+- <a href="#footnotes">Notas al Pie</a>
+- <a href="#definitions">Definiciones</a>
+- <a href="#details--summary">Detalles / Resumen</a>
+- <a href="#horizontal-rules">Líneas Horizontales</a>
+- <a href="#escaping--special-characters">Caracteres Especiales &amp; Escape</a>
 - <a href="#callouts-ad-hoc">Callouts (Ad-hoc)</a>
-- <a href="#mermaid-diagrams">Mermaid Diagrams</a>
-- <a href="#html-in-markdown">HTML in Markdown</a>
-- <a href="#misc-tips">Misc Tips</a>
-- <a href="#references">References</a></p>
+- <a href="#mermaid-diagrams">Diagramas Mermaid</a>
+- <a href="#html-in-markdown">HTML en Markdown</a>
+- <a href="#misc-tips">Consejos Varios</a>
+- <a href="#references">Referencias</a></p>
 <hr />
-<h2>Headings</h2>
-<h1>H1 — Big Title</h1>
-<h2>H2 — Section</h2>
-<h3>H3 — Subsection</h3>
-<h4>H4 — Minor Heading</h4>
-<h5>H5 — Tiny Heading</h5>
-<h6>H6 — Microscopic Heading</h6>
+<h2>Encabezados</h2>
+<h1>H1 — Título Grande</h1>
+<h2>H2 — Sección</h2>
+<h3>H3 — Subsección</h3>
+<h4>H4 — Encabezado Menor</h4>
+<h5>H5 — Encabezado Pequeño</h5>
+<h6>H6 — Encabezado Microscópico</h6>
 <hr />
-<h2>Text Styles</h2>
-<p>Normal text, with <strong>bold</strong>, <em>italic</em>, and <strong><em>bold italic</em></strong>.
-~~Strikethrough~~ is useful for change logs.
-Inline <code>code</code> for identifiers, <code>npm run build</code>, or variables like <code>FOO=bar</code>.
-Highlight ==important text== with <code>&lt;mark&gt;</code> in HTML: <mark>this is highlighted</mark>.
-Superscript: 2^10^ and Subscript: H~2~O (may require HTML: H<sub>2</sub>O).
-Emoji: 🎯 🚀 😄 or via shortcodes: :sparkles: :warning: :memo:</p>
+<h2>Estilos de Texto</h2>
+<p>Texto normal, con <strong>negrita</strong>, <em>cursiva</em> y <strong><em>negrita cursiva</em></strong>.
+~~Tachado~~ es útil para registros de cambios.
+Código inline <code>code</code> para identificadores, <code>npm run build</code> o variables como <code>FOO=bar</code>.
+Resalta ==texto importante== con <code>&lt;mark&gt;</code> en HTML: <mark>esto está resaltado</mark>.
+Superíndice: 2^10^ e Subíndice: H~2~O (puede requerir HTML: H<sub>2</sub>O).
+Emojis: 🎯 🚀 😄 o con shortcodes: :sparkles: :warning: :memo:</p>
 <blockquote>
-<p><strong>Note:</strong> GFM supports tables, task lists, strikethrough, autolinks, and footnotes.</p>
+<p><strong>Nota:</strong> GFM soporta tablas, listas de tareas, tachado, autolinks y notas al pie.</p>
 </blockquote>
 <hr />
-<h2>Paragraphs &amp; Line Breaks</h2>
-<p>A paragraph is made of one or more lines of text separated by a blank line.</p>
-<p>Line breaks
-occur when you end a line with two spaces.
-Or configure your renderer to treat single newlines as breaks.</p>
+<h2>Párrafos &amp; Saltos de Línea</h2>
+<p>Un párrafo se compone de una o más líneas de texto separadas por una línea en blanco.</p>
+<p>Los saltos de línea
+ocurren cuando terminas una línea con dos espacios.
+O configura tu renderizador para tratar nuevas líneas como saltos.</p>
 <hr />
-<h2>Lists</h2>
-<h3>Unordered</h3>
+<h2>Listas</h2>
+<h3>No Ordenadas</h3>
 <ul>
-<li>Apples</li>
+<li>Manzanas</li>
 <li>Fuji</li>
 <li>Gala</li>
-<li>Oranges</li>
+<li>Naranjas</li>
 <li>Navel</li>
-<li>Blood orange</li>
+<li>Sanguina</li>
 <li>Bananas</li>
 </ul>
-<h3>Ordered</h3>
+<h3>Ordenadas</h3>
 <ol>
-<li>First</li>
-<li>Second</li>
-<li>Sub-step A</li>
-<li>Sub-step B</li>
-<li>Third</li>
+<li>Primero</li>
+<li>Segundo</li>
+<li>Subpaso A</li>
+<li>Subpaso B</li>
+<li>Tercero</li>
 </ol>
-<h3>Mixed</h3>
+<h3>Mixtas</h3>
 <ul>
-<li>Install dependencies
+<li>Instalar dependencias
   1. <code>npm install</code>
   2. <code>npm run dev</code></li>
-<li>Configure environment</li>
+<li>Configurar entorno</li>
 <li><code>.env.local</code></li>
-<li>API keys</li>
+<li>Claves de API</li>
 </ul>
 <hr />
-<h2>Task Lists</h2>
+<h2>Listas de Tareas</h2>
 <ul>
-<li>[x] Write spec</li>
-<li>[x] Add tests</li>
-<li>[ ] Implement feature</li>
-<li>[ ] Review &amp; merge</li>
+<li>[x] Escribir especificación</li>
+<li>[x] Agregar pruebas</li>
+<li>[ ] Implementar funcionalidad</li>
+<li>[ ] Revisar &amp; hacer merge</li>
 </ul>
 <blockquote>
-<p>Tasks can be nested:
-- [ ] Parent
-  - [x] Child done
-  - [ ] Child pending</p>
+<p>Las tareas pueden anidarse:
+- [ ] Padre
+  - [x] Hijo hecho
+  - [ ] Hijo pendiente</p>
 </blockquote>
 <hr />
-<h2>Links</h2>
-<p>Inline link: <a href="https://www.markdownguide.org/">Markdown Guide</a>
-Reference link: <a href="https://github.com">GitHub</a> or <a href="https://github.com/your/repository">this repo</a>.
+<h2>Enlaces</h2>
+<p>Enlace inline: <a href="https://www.markdownguide.org/">Markdown Guide</a>
+Enlace de referencia: <a href="https://github.com">GitHub</a> o <a href="https://github.com/your/repository">este repositorio</a>.
 Autolink (GFM): https://example.com</p>
 <hr />
-<h2>Images</h2>
-<p>Inline image:</p>
-<p><img alt="Sample image alt text" src="https://placekitten.com/400/220" title="Optional title" /></p>
-<p>Reference image:</p>
+<h2>Imágenes</h2>
+<p>Imagen inline:</p>
+<p><img alt="Texto alternativo de la imagen" src="https://placekitten.com/400/220" title="Título opcional" /></p>
+<p>Imagen por referencia:</p>
 <p><img alt="Robot" src="https://port2025.b-cdn.net/Robot.png" title="Robot" /></p>
 <blockquote>
-<p>Tip: For local images, use relative paths like <code>./assets/diagram.png</code>.</p>
+<p>Consejo: Para imágenes locales, usa rutas relativas como <code>./assets/diagram.png</code>.</p>
 </blockquote>
 <hr />
-<h2>Blockquotes</h2>
+<h2>Citas</h2>
 <blockquote>
-<p>Single-level blockquote for quotes or callouts.</p>
-<p>Multi-level:</p>
+<p>Cita de un solo nivel para citas o avisos.</p>
+<p>Varios niveles:</p>
 <blockquote>
-<p>Nested quote level 2</p>
+<p>Cita nivel 2</p>
 <blockquote>
-<p>Nested quote level 3</p>
+<p>Cita nivel 3</p>
 </blockquote>
 </blockquote>
 </blockquote>
 <hr />
-<h2>Code</h2>
+<h2>Código</h2>
 <h3>Inline</h3>
-<p>Use <code>console.log("hello")</code> for quick debug.</p>
-<h3>Fenced Code Blocks</h3>
+<p>Usa <code>console.log("hello")</code> para un debug rápido.</p>
+<h3>Bloques de Código Delimitados</h3>
 <div class="codehilite"><pre><code><span class="c1"># Bash</span>
 mkdir<span class="w"> </span>-p<span class="w"> </span>dist<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>dist/hello.txt
 ls<span class="w"> </span>-lah<span class="w"> </span>dist
