@@ -59,6 +59,16 @@
       "github": "https://github.com/yalmeidarj/auto-notifier",
       "link": "https://pypi.org/project/auto-notifier/",
       "category": "other"
+    },
+    "match2fan":{
+      "id": "4",
+      "title": "match2fan.online",
+      "description": "match2fan.online centraliza partidas, resultados, tabelas e dados de jogo em um único lugar rápido e confiável. Para evitar lentidão ou limites de APIs de terceiros, usa um cache em camadas com Upstash Redis sobre a API-Football para manter os dados atualizados sem chamadas desnecessárias. Construído com Next.js (App Router), TypeScript, Tailwind CSS e shadcn/ui como um companheiro de futebol confiável.",
+      "image": "https://port2025.b-cdn.net/Portfolio/match2fan/match2fan-screen-image.png",
+      "technologies": ["Next.js", "TypeScript", "React", "Tailwind CSS", "shadcn/ui", "Upstash Redis", "API-Football"],
+      "github": "",
+      "link": "https://match2fan.online",
+      "category": "web"
     }
   },
 

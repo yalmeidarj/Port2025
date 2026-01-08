@@ -6,20 +6,10 @@ import Link from "next/link"
 import { useTranslations } from "next-intl"
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import type { Project } from "@/lib/projects"
 import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 import { Card, CardContent } from "../ui/card"
-
-export type Project = {
-    id: string
-    title: string
-    description: string
-    image?: string
-    technologies: string[]
-    github?: string
-    link?: string
-    category: "web" | "mobile" | "other"
-}
 
 type ProjectsTabsClientProps = {
     projects: Project[]

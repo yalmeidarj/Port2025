@@ -50,7 +50,7 @@
       "link": "https://tdx-solutions.vercel.app",
       "category": "web"
     },
-    "auto-notifier":{
+  "auto-notifier":{
       "id": "3",
       "title": "Auto-Notifier",
       "description": "Auto-Notifier es una herramienta ligera en Python diseñada para enviar notificaciones instantáneas cuando scripts de larga duración terminan o fallan. Elimina la necesidad de monitorear constantemente la terminal integrándose fácilmente mediante decoradores o context managers. Desarrolladores y analistas pueden enfocarse en su trabajo mientras Auto-Notifier envía alertas al finalizar, fallar o llegar a puntos clave — una solución simple para un problema común de productividad.",
@@ -59,6 +59,16 @@
       "github": "https://github.com/yalmeidarj/auto-notifier",
       "link": "https://pypi.org/project/auto-notifier/",
       "category": "other"
+    },
+    "match2fan":{
+      "id": "4",
+      "title": "match2fan.online",
+      "description": "match2fan.online reúne fixtures, resultados, tablas y datos de partidos en un solo lugar rápido y confiable. Para evitar la lentitud o los límites de APIs de terceros, usa un caché en capas con Upstash Redis sobre API-Football para mantener la información actualizada sin llamadas innecesarias. Construido con Next.js (App Router), TypeScript, Tailwind CSS y shadcn/ui como un compañero futbolero confiable.",
+      "image": "https://port2025.b-cdn.net/Portfolio/match2fan/match2fan-screen-image.png",
+      "technologies": ["Next.js", "TypeScript", "React", "Tailwind CSS", "shadcn/ui", "Upstash Redis", "API-Football"],
+      "github": "",
+      "link": "https://match2fan.online",
+      "category": "web"
     }
   },
 
